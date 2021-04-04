@@ -17,12 +17,9 @@ const Warn = require('./commands/Warn');
 const Infractions = require('./commands/Infractions');
 const Meme = require('./commands/meme');
 const Baka = require('./commands/baka');
-//const Anniv = require('./commands/anniv');
 const Clear = require('./commands/Clear');
 const Crash = require('./commands/Crash');
-const JAAJ = require('./commands/JAAJ');
 const RPhasmo = require('./commands/ReactionRole');
-const Quoi = require('./commands/quoi');
 
 
 bot.on('ready', function () {
@@ -34,7 +31,7 @@ bot.on('ready', function () {
 
 
 bot.on('message', function (message) {
-    let commandUsed = SpyroBot.parse(message) || givexp.parse(message) || Help.parse(message) || MalFoutu.parse(message) || Kick.parse(message) || Ban.parse(message) || Warn.parse(message) || Infractions.parse(message) || Baka.parse(message) || Meme.parse(message) || Clear.parse(message) || Crash.parse(message) || Quoi.parse(message)
+    let commandUsed = SpyroBot.parse(message) || givexp.parse(message) || Help.parse(message) || MalFoutu.parse(message) || Kick.parse(message) || Ban.parse(message) || Warn.parse(message) || Infractions.parse(message) || Baka.parse(message) || Meme.parse(message) || Clear.parse(message) || Crash.parse(message)
 })
 
 const queue = new Map();
