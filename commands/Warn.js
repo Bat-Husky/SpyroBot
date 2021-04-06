@@ -49,7 +49,7 @@ module.exports = class Warn extends commands {
                 .addField("Reason", reason)
       message.channel.send(warnEmbed);
 
-      const warnChannel = message.guild.channels.cache.find(ch => ch.name === 'logs')
+      const warnChannel = message.guild.channels.cache.find(ch => ch.name === 'LOGS CHANNEL')
 
       const warnEmbedLogs = new MessageEmbed()
           .setDescription("Warns")
