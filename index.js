@@ -83,7 +83,7 @@ async function execute(message, serverQueue) {
         url: songInfo.videoDetails.video_url,
   };
 
-  const queueChannel = message.guild.channels.cache.find(ch => ch.name === 'queue')
+  const queueChannel = message.guild.channels.cache.find(ch => ch.name === "CHANNEL FOR THE MUSIC'S MESSAGES")
 
   if (!serverQueue) {
     const queueContruct = {
@@ -196,7 +196,7 @@ function sendQueue(message, serverQueue) {
 function ping(message) {
     if(message.author.id != message.guild.owner.id) return message.reply("Vous n'avez pas les permissions nécessaires !");
     bot.user.setActivity("(prefix)help", { type: 'WATCHING' });
-    const testChannel = message.guild.channels.cache.find(ch => ch.name === 'test');
+    const testChannel = message.guild.channels.cache.find(ch => ch.name === 'a moderator channel');
     testChannel.send('YEY');
 }
 
