@@ -5,11 +5,11 @@ const { Client, MessageEmbed } = require('discord.js');
 
 module.exports = class Kick extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/kick')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}kick`)
     }
 
-    static action (message) {
+    static action (message, prefix) {
         const user = message.mentions.users.first();
         if (message.member.hasPermission("KICK_MEMBERS")) {
             if (user) {

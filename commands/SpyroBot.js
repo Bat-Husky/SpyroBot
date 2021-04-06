@@ -7,8 +7,8 @@ const ppImg = new Discord.MessageAttachment('../ReBot_test/Img/spyrobot_v1.png')
 
 module.exports = class SpyroBot extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/spyrobot')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}spyrobot`)
     }
 
     static action (message) {

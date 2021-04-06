@@ -9,8 +9,8 @@ const fs = require('fs');
 
 module.exports = class Warn extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/warn')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}warn`)
     }
 
     static action (message) {
@@ -51,7 +51,7 @@ module.exports = class Warn extends commands {
                 .addField("Reason", reason)
       message.channel.send(warnEmbed);
 
-      const warnChannel = message.guild.channels.cache.find(ch => ch.name === 'LOGS CHANNEL')
+      const warnChannel = message.guild.channels.cache.find(ch => ch.name === 'logs')
 
       const warnEmbedLogs = new MessageEmbed()
           .setDescription("Warns")

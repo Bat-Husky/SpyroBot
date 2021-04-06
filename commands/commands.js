@@ -3,8 +3,8 @@ const bot = new Discord.Client()
 
 module.exports = class commands {
 
-    static parse (message) {
-        if (this.match(message)) {
+    static parse (message, prefix) {
+        if (this.match(message, prefix)) {
             this.action(message)
             return true
         }

@@ -6,8 +6,8 @@ const talkedRecently = new Set()
 
 module.exports = class Baka extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/baka')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}baka`)
     }
 
     static action (message) {

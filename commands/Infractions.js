@@ -10,8 +10,8 @@ const fs = require('fs');
 
 module.exports = class Infractions extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/infractions')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}infractions`)
     }
 
     static action (message) {

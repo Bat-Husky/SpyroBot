@@ -5,8 +5,8 @@ const { Client, MessageEmbed } = require('discord.js');
 
 module.exports = class Help extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/help')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}help`)
     }
 
     static action (message) {
@@ -15,7 +15,7 @@ module.exports = class Help extends commands {
               .setTitle("SpyroBot's Commands")
               .setDescription("Voici toutes les commandes de SpyroBot, le préfix du bot est `/`.")
               .addField('\u200b', '\u200b')
-              .addField("☣ Useless  :", "`/givexp` : cette commande vous troll, tout simplement. \n`/tonbotestmalfoutu` : ne sert à rien. \n`/SpyroBot` : pour avoir des détails inutiles sur le Bot. \n`/baka` : /baka <@user> ; insulte les autres. \n`/meme` : envoie des memes")
+              .addField("☣ Useless  :", "`/givexp` : cette commande vous troll, tout simplement. \n`/tonbotestmalfoutu` : ne sert à rien. \n`/SpyroBot` : pour avoir des détails inutiles sur le Bot. \n`/baka` : /baka <@user> ; insulte les autres. \n`/meme` : envoie des memes \n`/diagonale` : MAIS PUTAIN !!")
               .addField('\u200b', '\u200b')
               .addField("🛡 Modération :", "`/Ban` : /Ban <@user> \n`/Kick` : /Kick <@user> \n`/Warn` : /Warn <@user> <reason> \n`/Infractions` : /Infractions <@user> \n`/Clear` : /Clear <amount> ; max 100")
               .addField('\u200b', '\u200b')

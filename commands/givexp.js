@@ -8,8 +8,8 @@ const stoImg = new Discord.MessageAttachment('../SpyroBot_new/Img/STONKS.jpg')
 
 module.exports = class GiveXP extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('/givexp')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}givexp`)
     }
 
     static action (message) {

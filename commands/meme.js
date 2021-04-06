@@ -10,8 +10,8 @@ const stonksImg = new Discord.MessageAttachment('../ReBot_test/Img/STONKSe.png')
 
 module.exports = class Meme extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/meme')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}meme`)
     }
 
     static action (message) {

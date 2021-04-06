@@ -5,8 +5,8 @@ const { Client, MessageEmbed } = require('discord.js');
 
 module.exports = class MalFoutu extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/tonbotestmalfoutu')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}tonbotestmalfoutu`)
     }
 
     static action (message) {

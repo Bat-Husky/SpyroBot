@@ -7,8 +7,8 @@ const { Client, MessageEmbed } = require('discord.js');
 
 module.exports = class Warn extends commands {
 
-    static match (message) {
-        return message.content.toString().toLowerCase().startsWith('r/crash')
+    static match (message, prefix) {
+        return message.content.toString().toLowerCase().startsWith(`${prefix}crash`)
     }
 
     static action (message) {
