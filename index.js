@@ -20,6 +20,7 @@ const Baka = require('./commands/baka');
 const Clear = require('./commands/Clear');
 const Crash = require('./commands/Crash');
 const RPhasmo = require('./commands/ReactionRole');
+const Diagonale = require('./commands/diagonale');
 
 
 bot.on('ready', function () {
@@ -31,7 +32,7 @@ bot.on('ready', function () {
 
 
 bot.on('message', function (message) {
-    let commandUsed = SpyroBot.parse(message) || givexp.parse(message) || Help.parse(message) || MalFoutu.parse(message) || Kick.parse(message) || Ban.parse(message) || Warn.parse(message) || Infractions.parse(message) || Baka.parse(message) || Meme.parse(message) || Clear.parse(message) || Crash.parse(message)
+    let commandUsed = SpyroBot.parse(message, prefix) || givexp.parse(message, prefix) || Help.parse(message, prefix) || MalFoutu.parse(message, prefix) || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Quoi.parse(message, prefix) || Diagonale.parse(message, prefix)
 })
 
 const queue = new Map();
