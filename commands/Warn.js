@@ -44,14 +44,23 @@ module.exports = class Warn extends commands {
       });
 
       const warnEmbed = new MessageEmbed()
+                .setDescription("Warns")
+                .setAuthor(`From ${message.author.username}`)
+                .setColor("#0042ff")
+                .addField("Warned User", warned)
+                .addField("Reason", reason)
+      message.channel.send(warnEmbed);
+
+      const warnChannel = message.guild.channels.cache.find(ch => ch.name === 'LOGS CHANNEL')
+
+      const warnEmbedLogs = new MessageEmbed()
           .setDescription("Warns")
-          .setAuthor(message.author.username)
+          .setAuthor(`From ${message.author.username}`)
           .setColor("#0042ff")
           .addField("Warned User", warned)
           .addField("Warned in", message.channel)
           .addField("Number of Warnings", warns[wUser.id].warns)
           .addField("Reason", reason)
-      message.channel.send(warnEmbed);
-
+      warnChannel.send(warnEmbedLogs);
     }
 }
