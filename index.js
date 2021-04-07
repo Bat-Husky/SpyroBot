@@ -127,7 +127,7 @@ function play(guild, song, author) {
   }
 
   if (!author) {
-    author = "<@622872629371731970>"
+    author = "<@an id who you want>"
   }
 
   const dispatcher = serverQueue.connection
