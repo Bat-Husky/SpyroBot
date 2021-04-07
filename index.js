@@ -17,9 +17,12 @@ const Warn = require('./commands/Warn');
 const Infractions = require('./commands/Infractions');
 const Meme = require('./commands/meme');
 const Baka = require('./commands/baka');
+//const Anniv = require('./commands/anniv');
 const Clear = require('./commands/Clear');
 const Crash = require('./commands/Crash');
+const JAAJ = require('./commands/JAAJ');
 const RPhasmo = require('./commands/ReactionRole');
+const Quoi = require('./commands/quoi');
 const Diagonale = require('./commands/diagonale');
 
 
@@ -32,7 +35,7 @@ bot.on('ready', function () {
 
 
 bot.on('message', function (message) {
-    let commandUsed = SpyroBot.parse(message, prefix) || givexp.parse(message, prefix) || Help.parse(message, prefix) || MalFoutu.parse(message, prefix) || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Diagonale.parse(message, prefix)
+    let commandUsed = SpyroBot.parse(message, prefix) || givexp.parse(message, prefix) || Help.parse(message, prefix) || MalFoutu.parse(message, prefix) || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Quoi.parse(message, prefix) || Diagonale.parse(message, prefix)
 })
 
 const queue = new Map();
@@ -83,7 +86,7 @@ async function execute(message, serverQueue) {
         url: songInfo.videoDetails.video_url,
   };
 
-  const queueChannel = message.guild.channels.cache.find(ch => ch.name === "CHANNEL FOR THE MUSIC'S MESSAGES")
+  const queueChannel = message.guild.channels.cache.find(ch => ch.name === 'queue')
 
   if (!serverQueue) {
     const queueContruct = {
@@ -127,7 +130,7 @@ function play(guild, song, author) {
   }
 
   if (!author) {
-    author = "<@an id who you want>"
+    author = "<@622872629371731970>"
   }
 
   const dispatcher = serverQueue.connection
@@ -194,9 +197,9 @@ function sendQueue(message, serverQueue) {
 }
 
 function ping(message) {
-    if(message.author.id != message.guild.owner.id) return message.reply("Vous n'avez pas les permissions nécessaires !");
-    bot.user.setActivity("(prefix)help", { type: 'WATCHING' });
-    const testChannel = message.guild.channels.cache.find(ch => ch.name === 'a moderator channel');
+    if(message.author.id != 467284102987382784) return message.reply("Vous n'avez pas les permissions nécessaires !");
+    bot.user.setActivity("r/help", { type: 'WATCHING' });
+    const testChannel = message.guild.channels.cache.find(ch => ch.name === 'test');
     testChannel.send('YEY');
 }
 
