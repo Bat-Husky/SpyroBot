@@ -3,6 +3,8 @@ const bot = new Discord.Client()
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
+//const ms = require("ms");
+
 
 
 module.exports = class Warn extends commands {
@@ -49,7 +51,7 @@ module.exports = class Warn extends commands {
                 .addField("Reason", reason)
       message.channel.send(warnEmbed);
 
-      const warnChannel = message.guild.channels.cache.find(ch => ch.name === 'LOGS CHANNEL')
+      const warnChannel = message.guild.channels.cache.find(ch => ch.name === 'logs')
 
       const warnEmbedLogs = new MessageEmbed()
           .setDescription("Warns")
