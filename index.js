@@ -194,8 +194,8 @@ function sendQueue(message, serverQueue) {
 }
 
 function ping(message) {
-    if(message.author.id != admin_id) return message.reply("Vous n'avez pas les permissions nécessaires !");
-    bot.user.setActivity("r/help", { type: 'WATCHING' });
+    if (message.author.id != admin_id) return message.reply("Vous n'avez pas les permissions nécessaires !");
+    bot.user.setActivity(`${prefix}help`, { type: 'WATCHING' });
     const testChannel = message.guild.channels.cache.find(ch => ch.name === "the moderator's channel");
     testChannel.send('YEY');
 }
