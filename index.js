@@ -3,10 +3,7 @@ const ytdl = require('ytdl-core')
 const fs = require('fs');
 const bot = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION" ]})
 const { Client, MessageEmbed } = require('discord.js');
-const {
-	prefix,
-	token,
-} = require('./JSON/config.json');
+const { prefix, token, OwnerID } = require('./JSON/config.json');
 const Help = require('./commands/Help');
 const SpyroBot = require('./commands/SpyroBot');
 const givexp = require('./commands/givexp');
@@ -194,7 +191,7 @@ function sendQueue(message, serverQueue) {
 }
 
 function ping(message) {
-    if (message.author.id != admin_id) return message.reply("Vous n'avez pas les permissions nécessaires !");
+    if (message.author.id != OwnerID) return message.reply("Vous n'avez pas les permissions nécessaires !");
     bot.user.setActivity(`${prefix}help`, { type: 'WATCHING' });
     const testChannel = message.guild.channels.cache.find(ch => ch.name === "the moderator's channel");
     testChannel.send('YEY');
