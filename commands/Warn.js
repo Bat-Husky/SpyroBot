@@ -3,8 +3,6 @@ const bot = new Discord.Client()
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-//const ms = require("ms");
-
 
 
 module.exports = class Warn extends commands {
