@@ -16,15 +16,15 @@ const Meme = require('./commands/meme');
 const Baka = require('./commands/baka');
 const Clear = require('./commands/Clear');
 const Crash = require('./commands/Crash');
-const RPhasmo = require('./commands/ReactionRole');
+const Reaction = require('./commands/ReactionRole');
 const Diagonale = require('./commands/diagonale');
+const React = require('./commands/react');
 
 
 bot.on('ready', function () {
     console.log("Ready!");
-    //bot.user.setAvatar('./Img/spyrobot_v1.png')
     bot.user.setActivity("crash", { type: 'PLAYING' })
-    //bot.user.setActivity("/L'ANNIV DE MIKWEL", { type: 'PLAYING' })
+    React.execute(Discord, bot)
 })
 
 
@@ -59,7 +59,7 @@ bot.on("message", async message => {
     ping(message);
     return;
   } else if (message.content.toString().toLowerCase().startsWith(`${prefix}reactionphasmo`)) {
-    RPhasmo.execute(message, Discord, bot);
+    Reaction.execute(message, Discord, bot);
     return;
   }
 });
