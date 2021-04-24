@@ -19,24 +19,25 @@ const Crash = require('./commands/Crash');
 const Reaction = require('./commands/ReactionRole');
 const Diagonale = require('./commands/diagonale');
 const React = require('./commands/react');
+const Join = require('./commands/join');
+const Report = require('./commands/report');
 
+const queue = new Map();
+
+var loop = false;
 
 bot.on('ready', function () {
     console.log("Ready!");
     bot.user.setActivity("crash", { type: 'PLAYING' })
     React.execute(Discord, bot)
+    Join.execute(Discord, bot)
 })
 
 
-bot.on('message', function (message) {
-    let commandUsed = SpyroBot.parse(message, prefix) || givexp.parse(message, prefix) || Help.parse(message, prefix) || MalFoutu.parse(message, prefix) || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Diagonale.parse(message, prefix)
-})
-
-const queue = new Map();
-
-bot.on("message", async message => {
+bot.on('message', async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
+  let commandUsed = SpyroBot.parse(message, prefix) || givexp.parse(message, prefix) || Help.parse(message, prefix) || MalFoutu.parse(message, prefix) || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Diagonale.parse(message, prefix)
 
   const serverQueue = queue.get(message.guild.id);
 
@@ -55,10 +56,13 @@ bot.on("message", async message => {
   } else if (message.content.toString().toLowerCase().startsWith(`${prefix}queue`)) {
     sendQueue(message, serverQueue);
     return;
+  } else if (message.content.toString().toLowerCase().startsWith(`${prefix}loop`)) {
+    loup(message, serverQueue);
+    return;
   } else if (message.content.toString().toLowerCase().startsWith(`${prefix}ping`)) {
     ping(message);
     return;
-  } else if (message.content.toString().toLowerCase().startsWith(`${prefix}reactionphasmo`)) {
+  } else if (message.content.toString().toLowerCase().startsWith(`${prefix}reaction`)) {
     Reaction.execute(message, Discord, bot);
     return;
   }
@@ -187,6 +191,30 @@ function sendQueue(message, serverQueue) {
     message.channel.send("Queue :");
     for (const title in serverQueue.songs) {
         message.channel.send("```markdown" + `\n#${serverQueue.songs[title].title}\n` + "```")
+    }
+}
+
+function loup(message, serverQueue) {
+  if (!message.member.voice.channel)
+    return message.channel.send(
+      "You have to be in a voice channel to pause the music!"
+    );
+
+  if (!serverQueue)
+    return message.channel.send("There is no song!");
+  
+    if (loop == false) {
+      loop = true;
+      const embed = new MessageEmbed()
+        .setColor("#0042ff")
+        .addField("Loop", '`On`')
+      message.channel.send(embed);
+    } else {
+      loop = false;
+      const embed = new MessageEmbed()
+        .setColor("#0042ff")
+        .addField("Loop", '`Off`')
+      message.channel.send(embed);
     }
 }
 
