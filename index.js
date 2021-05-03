@@ -71,7 +71,6 @@ bot.on('message', async message => {
 
 async function execute(message, serverQueue) {
   const args = message.content.split(" ");
-  const author = message.member;
 
   const voiceChannel = message.member.voice.channel;
   if (!voiceChannel)
@@ -83,6 +82,7 @@ async function execute(message, serverQueue) {
   const song = {
         title: songInfo.videoDetails.title,
         url: songInfo.videoDetails.video_url,
+        author: message.member;
   };
 
   const queueChannel = message.guild.channels.cache.find(ch => ch.name === 'the queue channel')
@@ -104,7 +104,7 @@ async function execute(message, serverQueue) {
     try {
       var connection = await voiceChannel.join();
       queueContruct.connection = connection;
-      play(message.guild, queueContruct.songs[0], author);
+      play(message.guild, queueContruct.songs[0]);
     } catch (err) {
       console.log(err);
       queue.delete(message.guild.id);
@@ -115,21 +115,17 @@ async function execute(message, serverQueue) {
     const embed = new MessageEmbed()
                         .setColor("#0042ff")
                         .addField("Added to the queue", `[${song.title}](${song.url})`)
-                        .addField("From", `${author}`)
+                        .addField("From", `${song.author}`)
     return message.channel.send(embed);
   }
 }
 
-function play(guild, song, author) {
+function play(guild, song) {
   const serverQueue = queue.get(guild.id);
   if (!song) {
     serverQueue.voiceChannel.leave();
     queue.delete(guild.id);
     return;
-  }
-
-  if (!author) {
-    author = "<@what id you want>"
   }
 
   const dispatcher = serverQueue.connection
@@ -143,7 +139,7 @@ function play(guild, song, author) {
   const embed = new MessageEmbed()
                     .setColor("#0042ff")
                     .addField("Now playing", `[${song.title}](${song.url})`)
-                    .addField("From", `${author}`)
+                    .addField("From", `${song.author}`)
   serverQueue.textChannel.send(embed);
 }
 
