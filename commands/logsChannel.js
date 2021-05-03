@@ -11,7 +11,7 @@ module.exports = class LogsChannel extends commands {
     }
 
     static action (message) {
-        if(!message.member.hasPermission("MANAGE_CHANNEL")) return message.reply("You can't use that command!");
+        if(!message.member.hasPermission("MANAGE_CHANNELS")) return message.reply("You can't use that command!");
 
         let logsChannels = JSON.parse(fs.readFileSync("../ReBot_test/JSON/LogsChannels.json", "utf8"));
 
