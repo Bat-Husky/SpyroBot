@@ -20,13 +20,13 @@ module.exports = class Warn extends commands {
 
         let logsChannels = JSON.parse(fs.readFileSync("../ReBot_test/JSON/LogsChannels.json", "utf8"));
 
-        if (!logsChannels[message.guild.id]) {
-            return message.reply("Définnissez le channel des logs comme ceci : \n`$LogsChannel <logs channel>`")
+        if (!logsChannels[message.guild.id] || !message.guild.channels.cache.find(ch => ch.name == logsChannels[message.guild.id]) || !message.guild.channels.cache.find(ch => ch.id == logsChannels[message.guild.id])) {
+            return message.reply("Définnissez le channel des logs comme ceci : \n`$LogsChannel <id or name>`")
         }
 
         let wUser = message.guild.member(message.mentions.users.first()) || message.mentions.users.first();
         if(!wUser) return message.reply("Can't find user!");
-        if(wUser.hasPermission("MANAGE_MESSAGES")) return message.reply("I can't warn him!");
+        if(wUser.hasPermission("ADMINISTRATOR")) return message.reply("I can't warn him!");
 
         var warned = message.mentions.users.first();
 
@@ -59,7 +59,7 @@ module.exports = class Warn extends commands {
         message.channel.send(warnEmbed);
 
         
-        const warnChannel = message.guild.channels.cache.find(ch => ch.name == logsChannels[message.guild.id])
+        const warnChannel = message.guild.channels.cache.find(ch => ch.name == logsChannels[message.guild.id]) || message.guild.channels.cache.find(ch => ch.id == logsChannels[message.guild.id])
 
         const warnEmbedLogs = new MessageEmbed()
             .setDescription("Warns")
