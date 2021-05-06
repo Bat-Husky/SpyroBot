@@ -85,16 +85,15 @@ async function execute(message, serverQueue) {
         author: message.member;
   };
 
-  var QueueChannel;
-  var QueueChannels = JSON.parse(fs.readFileSync("../ReBot_test/JSON/QueueChannel.json", "utf8"));
-  QueueChannel = message.guild.channels.cache.find(ch => ch.name == QueueChannels[message.guild.id]) || message.guild.channels.cache.find(ch => ch.id == QueueChannels[message.guild.id])
-
-  if (!QueueChannels[message.guild.id] || !message.guild.channels.cache.find(ch => ch.name == QueueChannels[message.guild.id]) && !message.guild.channels.cache.find(ch => ch.id == QueueChannels[message.guild.id])) {
-    message.reply("Définnissez le channel de la Queue comme ceci : \n`SetQueueChannel <id or name>`")
-    QueueChannel = message.channel;
-  }
-
   if (!serverQueue) {
+    var QueueChannel;
+    var QueueChannels = JSON.parse(fs.readFileSync("../ReBot_test/JSON/QueueChannel.json", "utf8"));
+    QueueChannel = message.guild.channels.cache.find(ch => ch.name == QueueChannels[message.guild.id]) || message.guild.channels.cache.find(ch => ch.id == QueueChannels[message.guild.id])
+
+    if (!QueueChannels[message.guild.id] || !message.guild.channels.cache.find(ch => ch.name == QueueChannels[message.guild.id]) && !message.guild.channels.cache.find(ch => ch.id == QueueChannels[message.guild.id])) {
+      message.reply("Définnissez le channel de la Queue comme ceci : \n`SetQueueChannel <id or name>`")
+      QueueChannel = message.channel;
+    }
     const queueContruct = {
       textChannel: QueueChannel,
       voiceChannel: voiceChannel,
