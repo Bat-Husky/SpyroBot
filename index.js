@@ -25,7 +25,6 @@ const LogsChannel = require('./commands/logsChannel');
 
 const queue = new Map();
 
-var loop = false;
 
 bot.on('ready', function () {
     console.log("Ready!");
@@ -94,7 +93,8 @@ async function execute(message, serverQueue) {
       connection: null,
       songs: [],
       volume: 5,
-      playing: true
+      playing: true,
+      loop: false
     };
 
     queue.set(message.guild.id, queueContruct);
@@ -131,6 +131,7 @@ function play(guild, song) {
   const dispatcher = serverQueue.connection
     .play(ytdl(song.url), { filter : 'audioonly' })
     .on("finish", () => {
+      if (serverQueue.loop == true) serverQueue.songs.push(serverQueue.songs[0]);
       serverQueue.songs.shift();
       play(guild, serverQueue.songs[0]);
     })
@@ -162,6 +163,7 @@ function stop(message, serverQueue) {
     if (!serverQueue)
        return message.channel.send("There is no song that I could stop!");
 
+    serverQueue.loop = false;
     serverQueue.songs = [];
     serverQueue.connection.dispatcher.end();
 }
@@ -200,14 +202,14 @@ function loup(message, serverQueue) {
   if (!serverQueue)
     return message.channel.send("There is no song!");
   
-    if (loop == false) {
-      loop = true;
+    if (serverQueue.loop == false) {
+      serverQueue.loop = true;
       const embed = new MessageEmbed()
         .setColor("#0042ff")
         .addField("Loop", '`On`')
       message.channel.send(embed);
     } else {
-      loop = false;
+      serverQueue.loop = false;
       const embed = new MessageEmbed()
         .setColor("#0042ff")
         .addField("Loop", '`Off`')
