@@ -32,7 +32,7 @@ module.exports = class QueueChannel extends commands {
         const channel = message.guild.channels.cache.find(ch => ch.name == QueueChannel[message.guild.id]) || message.guild.channels.cache.find(ch => ch.id == QueueChannel[message.guild.id])
 
         const embed = new MessageEmbed()
-            .setTitle("Logs Channel now set to :")
+            .setTitle("Queue Channel now set to :")
             .setDescription(`${channel}`)
         return message.channel.send(embed);
         
