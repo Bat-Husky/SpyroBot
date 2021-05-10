@@ -4,17 +4,17 @@ const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
 
 
-module.exports = class QueueChannel extends commands {
+module.exports = class FaitsDivers extends commands {
 
     static match (message, prefix) {
         return message.content.toString().toLowerCase().startsWith(`${prefix}faitsdivers`)
     }
 
-    static action (message) {
-        let faitsDivers = JSON.parse(fs.readFileSync("../ReBot_test/JSON/faitsdivers.json", "utf8"));
+    static async action (message) {
+        let nbFaitsDivers = JSON.parse(fs.readFileSync("../ReBot_test/JSON/faitsdivers.json", "utf8"))["nombre"]
+        let faitsDivers = JSON.parse(fs.readFileSync("../ReBot_test/JSON/faitsdivers.json", "utf8"))["faitsdivers"]
+        let nbAleatoire = Math.floor(Math.random() * nbFaitsDivers);
 
-        let nbAleatoire = Math.floor(Math.random() * 32);
-
-        message.channel.send(`**${faitsDivers[nbAleatoire]}**`);
+        message.channel.send(`>>> **${faitsDivers[nbAleatoire]}**`);
     }
 }
