@@ -4,7 +4,7 @@ const { Client, MessageEmbed } = require('discord.js');
 const run = new Map();
 const list = new Set();
 
-module.exports = class UserInfo extends commands {
+module.exports = class RunForLife extends commands {
 
     static match (message, prefix) {
         return message.content.toString().toLowerCase().startsWith(`${prefix}run`)
