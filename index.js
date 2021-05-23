@@ -38,6 +38,17 @@ bot.on('ready', function () {
 })
 
 
+bot.on("guildCreate", guild => {
+  const channels = guild.channels.cache.filter(channel => channel.type == "news") || guild.channels.cache.filter(channel => channel.type == "text");
+
+  const embed = new MessageEmbed()
+    .setColor("#0042FF")
+    .setTitle("Thank you for inviting me!")
+    .setDescription("I'm SpyroBot, my prefix is `$`. \nTry `$Help` to get started.")
+  channels.first().send(embed).catch(err => console.log(err));
+});
+
+
 bot.on('message', async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
