@@ -11,6 +11,10 @@ module.exports = class Baka extends commands {
     }
 
     static action (message) {
+        let status = JSON.parse(fs.readFileSync("../ReBot_test/JSON/CommandStatus.json", "utf8"));
+
+        if (status["baka"][message.guild.id] == "off") return;
+        
         if (message.member.hasPermission("ADMINISTRATOR")) {
             const user = message.mentions.users.first();
             if (user) {
