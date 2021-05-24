@@ -26,6 +26,7 @@ const QueueChannel = require('./commands/QueueChannel');
 const FaitsDivers = require('./commands/FaitsDivers');
 const AddFaitsDivers = require('./commands/AddFaitsDivers');
 const runTest = require('./commands/runforlife');
+const cmdStatus = require('./commands/onoff');
 
 const queue = new Map();
 
@@ -42,17 +43,26 @@ bot.on("guildCreate", guild => {
   const channels = guild.channels.cache.filter(channel => channel.type == "news") || guild.channels.cache.filter(channel => channel.type == "text");
 
   const embed = new MessageEmbed()
-    .setColor("#0042FF")
+    .setColor("#0042ff")
     .setTitle("Thank you for inviting me!")
-    .setDescription("I'm SpyroBot, my prefix is `$`. \nTry `$Help` to get started.")
+    .setURL("https://docs.google.com/document/d/1uSBdN_1_jUk0arHGbWB0kMjv6YJGQTgoLKO2QhjjhK8/edit?usp=sharing")
+    .setDescription("Hi! I am SpyroBot! \nI am a multi-tasking bot developed by `Bat-Husky`. \nI have `🛡 moderation` and `🔊 music` commands. I also have other `☣ Useless` but funny commands. \nTo get started, use the command $help.")
+    .setThumbnail('https://media.discordapp.net/attachments/575712614097879050/799944045778436107/spyrobot_v1.png?width=670&height=670')
+    .addField('\u200b', '\u200b')
+    .addFields(
+      { name: 'Library :', value: '`discord.js`', inline: true },
+      { name: 'Prefix :', value: '`$`', inline: true },
+      { name: 'Running on :', value: `\`${bot.guilds.cache.size} servers\``, inline: true }
+    )
   channels.first().send(embed).catch(err => console.log(err));
 });
 
 
 bot.on('message', async message => {
+  if (!message.guild) return;
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
-  let commandUsed = SpyroBot.parse(message, prefix) || Givexp.parse(message, prefix) || Help.parse(message, prefix) || MalFoutu.parse(message, prefix) || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Diagonale.parse(message, prefix) || Report.parse(message, prefix) || LogsChannel.parse(message, prefix) || QueueChannel.parse(message, prefix) || FaitsDivers.parse(message, prefix) || AddFaitsDivers.parse(message, prefix) || runTest.parse(message, prefix)
+  let commandUsed = SpyroBot.parse(message, prefix) || Givexp.parse(message, prefix) || Help.parse(message, prefix) || MalFoutu.parse(message, prefix) || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Diagonale.parse(message, prefix) || Report.parse(message, prefix) || LogsChannel.parse(message, prefix) || QueueChannel.parse(message, prefix) || FaitsDivers.parse(message, prefix) || AddFaitsDivers.parse(message, prefix) || runTest.parse(message, prefix) || cmdStatus.parse(message, prefix);
 
   const serverQueue = queue.get(message.guild.id);
 
@@ -79,6 +89,9 @@ bot.on('message', async message => {
     return;
   } else if (message.content.toString().toLowerCase().startsWith(`${prefix}reaction`)) {
     Reaction.execute(message, Discord, bot);
+    return;
+  } else if (message.content.toString().toLowerCase().startsWith(`${prefix}info`)) {
+    info(message);
     return;
   }
 });
@@ -236,6 +249,22 @@ function loup(message, serverQueue) {
         .addField("Loop", '`Off`')
       message.channel.send(embed);
     }
+}
+
+function info(message) {
+  const embed = new MessageEmbed()
+    .setColor("#0042ff")
+    .setTitle("SpyroBot Info")
+    .setURL("https://docs.google.com/document/d/1uSBdN_1_jUk0arHGbWB0kMjv6YJGQTgoLKO2QhjjhK8/edit?usp=sharing")
+    .setDescription("Hi! I am SpyroBot! \nI am a multi-tasking bot developed by `Bat-Husky`. \nI have `🛡 moderation` and `🔊 music` commands. I also have other `☣ Useless` but funny commands. \nFor more info about commands, use the command $help.")
+    .setThumbnail('https://media.discordapp.net/attachments/575712614097879050/799944045778436107/spyrobot_v1.png?width=670&height=670')
+    .addField('\u200b', '\u200b')
+    .addFields(
+      { name: 'Library :', value: '`discord.js`', inline: true },
+      { name: 'Prefix :', value: '`$`', inline: true },
+      { name: 'Running on :', value: `\`${bot.guilds.cache.size} servers\``, inline: true }
+    )
+  message.channel.send(embed);
 }
 
 function ping(message) {
