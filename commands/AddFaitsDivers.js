@@ -13,7 +13,7 @@ module.exports = class AddFaitsDivers extends commands {
     static action (message) {
         if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("You can't use that command!");
 
-        let faitsDivers = JSON.parse(fs.readFileSync("../ReBot_test/JSON/faitsdivers.json", "utf8"))
+        let faitsDivers = JSON.parse(fs.readFileSync("./JSON/faitsdivers.json", "utf8"))
 
         
         if (!message.content.toString().split(' ')[1]) return message.reply("Ajoutez un faitsdivers comme ceci : \n`AddFaitsDivers <faits divers>`")
@@ -24,7 +24,7 @@ module.exports = class AddFaitsDivers extends commands {
         faitsDivers["nombre"]++;
 
 
-        fs.writeFile("../ReBot_test/JSON/faitsdivers.json", JSON.stringify(faitsDivers), (err) => {
+        fs.writeFile("./JSON/faitsdivers.json", JSON.stringify(faitsDivers), (err) => {
             if (err) {
                 console.log(err);
             }
