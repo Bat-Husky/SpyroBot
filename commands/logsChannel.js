@@ -13,7 +13,7 @@ module.exports = class LogsChannel extends commands {
     static action (message) {
         if (!message.member.hasPermission("MANAGE_CHANNELS")) return message.reply("You can't use that command!");
 
-        let logsChannels = JSON.parse(fs.readFileSync("../ReBot_test/JSON/LogsChannels.json", "utf8"));
+        let logsChannels = JSON.parse(fs.readFileSync("./JSON/LogsChannels.json", "utf8"));
 
         
         if (!message.content.toString().split(' ')[1]) return message.reply("Définnissez le channel des logs comme ceci : \n`$LogsChannel <id or name>`")
@@ -23,7 +23,7 @@ module.exports = class LogsChannel extends commands {
 
         if (!message.guild.channels.cache.find(ch => ch.name == logsChannels[message.guild.id]) && !message.guild.channels.cache.find(ch => ch.id == logsChannels[message.guild.id])) return message.reply("Ce channel n'existe pas")
 
-        fs.writeFile("../ReBot_test/JSON/LogsChannels.json", JSON.stringify(logsChannels), (err) => {
+        fs.writeFile("./JSON/LogsChannels.json", JSON.stringify(logsChannels), (err) => {
             if (err) {
                 console.log(err);
             }
