@@ -7,5 +7,25 @@
   <img src="https://bat-husky.github.io/spyrobot_github.png">
 </p>
 
-This is a Repository for a discord bot that I created.
-You can use the code but not copy everything.
+SpyroBot is a little Discord bot that I created. For more info, you can invite the bot.
+
+## Installation
+
+Add SpyroBot to your server by clicking here : ![Invite Link](https://discordapp.com/oauth2/authorize?client_id=622872629371731970&scope=bot&permissions=8)
+
+## Setup
+
+Download this code, put your information in JSON/config.json or it will not work. Finally, launch the bot with **nodejs** as below.
+
+```bash
+node index.js
+```
+
+## Usage
+
+List of the main commands :
+
+```
+$info
+$help
+```
