@@ -27,6 +27,7 @@ const FaitsDivers = require('./commands/FaitsDivers');
 const AddFaitsDivers = require('./commands/AddFaitsDivers');
 const runTest = require('./commands/runforlife');
 const cmdStatus = require('./commands/onoff');
+const Pin = require('./commands/pin');
 
 const queue = new Map();
 
@@ -36,6 +37,7 @@ bot.on('ready', function () {
     bot.user.setActivity("crash", { type: 'PLAYING' })
     React.execute(Discord, bot)
     Join.execute(Discord, bot)
+    Pin.execute(Discord, bot)
 })
 
 
@@ -271,7 +273,8 @@ function ping(message) {
     if (message.author.id != OwnerID) return message.reply("Vous n'avez pas les permissions nécessaires !");
     bot.user.setActivity(`${prefix}help`, { type: 'WATCHING' });
     const testChannel = message.guild.channels.cache.find(ch => ch.name === "the moderator's channel");
-    testChannel.send('YEY');
+    let Time = Math.round((bot.uptime / 60000) * 1000) / 1000
+    testChannel.send(`\`\`\`fix\nPing réussi ! \n\`\`\` \nUptime : \`${Time} minutes\``);
 }
 
 
