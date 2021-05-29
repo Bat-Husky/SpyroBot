@@ -3,10 +3,10 @@ const bot = new Discord.Client()
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const talkedRecently = new Set()
-const kappaImg = new Discord.MessageAttachment('../ReBot_test/Img/Kappa.png')
-const lulImg = new Discord.MessageAttachment('../ReBot_test/Img/LUL.png')
-const okImg = new Discord.MessageAttachment('../ReBot_test/Img/Saitama-OK.png')
-const stonksImg = new Discord.MessageAttachment('../ReBot_test/Img/STONKSe.png')
+const kappaImg = new Discord.MessageAttachment('./Img/Kappa.png')
+const lulImg = new Discord.MessageAttachment('./Img/LUL.png')
+const okImg = new Discord.MessageAttachment('./Img/Saitama-OK.png')
+const stonksImg = new Discord.MessageAttachment('./Img/STONKSe.png')
 
 module.exports = class Meme extends commands {
 
