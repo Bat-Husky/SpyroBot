@@ -15,7 +15,7 @@ module.exports = class Infractions extends commands {
     }
 
     static action (message) {
-      let warns = JSON.parse(fs.readFileSync("../ReBot_test/JSON/Warning.json", "utf8"));
+      let warns = JSON.parse(fs.readFileSync("./JSON/Warning.json", "utf8"));
 
       if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("Vous n'avez pas les permissions nécessaires !");
       if(!message.mentions.users.first()) return message.reply("Vous n'avez mentionné personne !")
