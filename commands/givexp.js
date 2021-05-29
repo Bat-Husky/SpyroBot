@@ -3,8 +3,8 @@ const bot = new Discord.Client()
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const xpImg = new Discord.MessageAttachment('../SpyroBot_new/Img/XP.png')
-const stoImg = new Discord.MessageAttachment('../SpyroBot_new/Img/STONKS.jpg')
+const xpImg = new Discord.MessageAttachment('./Img/XP.png')
+const stoImg = new Discord.MessageAttachment('./Img/STONKS.jpg')
 
 module.exports = class GiveXP extends commands {
 
@@ -13,7 +13,7 @@ module.exports = class GiveXP extends commands {
     }
 
     static action (message) {
-        let cheating = JSON.parse(fs.readFileSync("../SpyroBot_new/JSON/tricheur.json", "utf8"));
+        let cheating = JSON.parse(fs.readFileSync("./JSON/tricheur.json", "utf8"));
         let User = message.member;
 
         if(!cheating[User.id]) cheating[User.id] = {
@@ -22,7 +22,7 @@ module.exports = class GiveXP extends commands {
 
         cheating[User.id].cheating++;
 
-        fs.writeFile("../SpyroBot_new/JSON/tricheur.json", JSON.stringify(cheating), (err) => {
+        fs.writeFile("./JSON/tricheur.json", JSON.stringify(cheating), (err) => {
             if (err) {
                 console.log(err);
             }
