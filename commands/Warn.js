@@ -3,8 +3,6 @@ const bot = new Discord.Client()
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-//const ms = require("ms");
-
 
 
 module.exports = class Warn extends commands {
@@ -14,11 +12,11 @@ module.exports = class Warn extends commands {
     }
 
     static action (message) {
-        let warns = JSON.parse(fs.readFileSync("../ReBot_test/JSON/Warning.json", "utf8"));
+        let warns = JSON.parse(fs.readFileSync("./JSON/Warning.json", "utf8"));
 
         if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("You can't use that command!");
 
-        let logsChannels = JSON.parse(fs.readFileSync("../ReBot_test/JSON/LogsChannels.json", "utf8"));
+        let logsChannels = JSON.parse(fs.readFileSync("./JSON/LogsChannels.json", "utf8"));
 
         if (!logsChannels[message.guild.id] || !message.guild.channels.cache.find(ch => ch.name == logsChannels[message.guild.id]) || !message.guild.channels.cache.find(ch => ch.id == logsChannels[message.guild.id])) {
             return message.reply("Définnissez le channel des logs comme ceci : \n`$LogsChannel <id or name>`")
