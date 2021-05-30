@@ -64,7 +64,7 @@ module.exports = class Coin extends commands {
 
         const warnEmbed = new MessageEmbed()
             .setTitle('Coins')
-            .setColor("#0042ff")
+            .setColor("#EFEF42")
             .addField("User", cUser)
             .addField("Number of Coins", coins[cUser.id].coins)
         message.channel.send(warnEmbed);
