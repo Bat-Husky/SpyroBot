@@ -3,6 +3,8 @@ const bot = new Discord.Client()
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const talkedRecently = new Set()
+const fs = require('fs');
+
 
 module.exports = class Baka extends commands {
 
@@ -12,9 +14,10 @@ module.exports = class Baka extends commands {
 
     static action (message) {
         let status = JSON.parse(fs.readFileSync("../ReBot_test/JSON/CommandStatus.json", "utf8"));
+        var buy = false;
 
         if (status["baka"][message.guild.id] == "off") return;
-        
+
         if (message.member.hasPermission("ADMINISTRATOR")) {
             const user = message.mentions.users.first();
             if (user) {
@@ -46,42 +49,55 @@ module.exports = class Baka extends commands {
                 message.reply("Vous n'avez mentionné personne !");
             }
         } else {
+            let coins = JSON.parse(fs.readFileSync("./JSON/coin.json", "utf8"));
             if (talkedRecently.has(message.author.id)) {
-                message.channel.send("Attendez une minute avant de réessayer" + message.author.toString());
-            } else {
-                const user = message.mentions.users.first();
-                if (user) {
-                    const member = message.guild.member(user);
-                    if (member) {
-                        var nombreAleatoire = Math.round(Math.random()*8);
-                        var reponse;
-                        if (nombreAleatoire === 1) {
-                            message.channel.send(`${user} est une grosse merde`)
-                        } else if (nombreAleatoire === 2) {
-                            message.channel.send(`${user} va bouffer ses grands morts`)
-                        } else if (nombreAleatoire === 3) {
-                            message.channel.send(`${user} est juste un énorme ABRUTI`)
-                        } else if (nombreAleatoire === 4) {
-                            message.channel.send(`${user} est une PÉTASSE`)
-                        } else if (nombreAleatoire === 5) {
-                            message.channel.send(`${user} est un sale gueux`)
-                        } else if (nombreAleatoire === 6) {
-                            message.channel.send(`${user} a un balai dans l'cul`)
-                        } else if (nombreAleatoire === 7) {
-                            message.channel.send(`${user} est une ordure`)
-                        } else {
-                            message.channel.send(`${user} est un sale gougnafier`)
-                        }
+                if (message.content.toString().toLowerCase().split(' ')[2] != "buy" || coins[message.author.id].coins < 100) {
+                    return message.channel.send("Wait a minute before trying again " + message.author.toString());
+                }
+
+                coins[message.author.id].coins -= 100;
+                buy = true;
+
+                fs.writeFile("./JSON/coin.json", JSON.stringify(coins), (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+            const user = message.mentions.users.first();
+            if (user) {
+                const member = message.guild.member(user);
+                if (member) {
+                    var nombreAleatoire = Math.round(Math.random()*8);
+                    var reponse;
+                    if (nombreAleatoire === 1) {
+                        message.channel.send(`${user} est une grosse merde`)
+                    } else if (nombreAleatoire === 2) {
+                        message.channel.send(`${user} va bouffer ses grands morts`)
+                    } else if (nombreAleatoire === 3) {
+                        message.channel.send(`${user} est juste un énorme ABRUTI`)
+                    } else if (nombreAleatoire === 4) {
+                        message.channel.send(`${user} est une PÉTASSE`)
+                    } else if (nombreAleatoire === 5) {
+                        message.channel.send(`${user} est un sale gueux`)
+                    } else if (nombreAleatoire === 6) {
+                        message.channel.send(`${user} a un balai dans l'cul`)
+                    } else if (nombreAleatoire === 7) {
+                        message.channel.send(`${user} est une ordure`)
+                    } else {
+                        message.channel.send(`${user} est un sale gougnafier`)
+                    }
+                    if (buy == false) {
                         talkedRecently.add(message.author.id);
                         setTimeout(() => {
                             talkedRecently.delete(message.author.id);
                         }, 60000);
-                    } else {
-                        message.reply("Il n'est pas sur le serveur !");
-                    }
+                    }   
                 } else {
-                    message.reply("Vous n'avez mentionné personne !");
+                    message.reply("Il n'est pas sur le serveur !");
                 }
+            } else {
+                message.reply("Vous n'avez mentionné personne !");
             }
         }
     }
