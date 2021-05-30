@@ -11,9 +11,20 @@ module.exports = class AddFaitsDivers extends commands {
     }
 
     static action (message) {
-        if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("You can't use that command!");
+        if(!message.member.hasPermission("ADMINISTRATOR")) {
+            let coins = JSON.parse(fs.readFileSync("./JSON/coin.json", "utf8"));
+            if (coins[message.author.id].coins < 1250) return message.reply(`You don't have enough coins to add a \`Faits Divers\`! \n\`${coins[message.author.id].coins}\` < \`1250\``)
 
-        let faitsDivers = JSON.parse(fs.readFileSync("./JSON/faitsdivers.json", "utf8"))
+            coins[message.author.id].coins -= 1250;
+
+            fs.writeFile("./JSON/coin.json", JSON.stringify(coins), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        let faitsDivers = JSON.parse(fs.readFileSync("../ReBot_test/JSON/faitsdivers.json", "utf8"))
 
         
         if (!message.content.toString().split(' ')[1]) return message.reply("Ajoutez un faitsdivers comme ceci : \n`AddFaitsDivers <faits divers>`")
@@ -24,12 +35,12 @@ module.exports = class AddFaitsDivers extends commands {
         faitsDivers["nombre"]++;
 
 
-        fs.writeFile("./JSON/faitsdivers.json", JSON.stringify(faitsDivers), (err) => {
+        fs.writeFile("../ReBot_test/JSON/faitsdivers.json", JSON.stringify(faitsDivers), (err) => {
             if (err) {
                 console.log(err);
             }
         });
 
-        return message.channel.send(`Nouveau Faitsdivers ajouté avec succès ! \n**${faitsDivers["faitsdivers"][faitsDivers["nombre"] - 1]}**`)
+        return message.channel.send(`Nouveau faits divers ajouté avec succès ! \n**${faitsDivers["faitsdivers"][faitsDivers["nombre"] - 1]}**`)
     }
 }
