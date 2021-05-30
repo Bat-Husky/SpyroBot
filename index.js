@@ -186,6 +186,16 @@ function play(guild, song) {
 }
 
 function skip(message, serverQueue) {
+    if(!message.member.hasPermission("ADMINISTRATOR")) {
+        let coins = JSON.parse(fs.readFileSync("./JSON/coin.json", "utf8"));
+        if (coins[message.author.id].coins < 200) return message.reply(`You don't have enough coins to skip! \n\`${coins[message.author.id].coins}\` < \`200\``)
+        coins[message.author.id].coins -= 200;
+        fs.writeFile("./JSON/coin.json", JSON.stringify(coins), (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+    }
     if (!message.member.voice.channel)
        return message.channel.send(
            "You have to be in a voice channel to skip the music!"
