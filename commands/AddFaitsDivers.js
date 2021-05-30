@@ -31,7 +31,7 @@ module.exports = class AddFaitsDivers extends commands {
         let tempChannel = message.content.toString().split(' ');
         tempChannel.shift();
         faitsDivers["faitsdivers"][faitsDivers["nombre"]] = tempChannel.join(' ');
-
+        
         faitsDivers["nombre"]++;
 
 
