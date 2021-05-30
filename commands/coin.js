@@ -22,7 +22,14 @@ module.exports = class Coin extends commands {
     }
 
     static info (message) {
-
+        const embed = new MessageEmbed()
+              .setColor("#EFEF42")
+              .setTitle("Coin commands")
+              .setDescription("Cette commande permet de gagner de l'argent à utiliser dans certaines commandes.")
+              .addField("Utilisation :", "`$coin info` : cette commande. \n `$coin get` : Toute les heures, fait gagner 250 coins. \n `$coin amount` : Vous donne le nombre de coin de quelqu'un.")
+              .addField('\u200b', '\u200b')
+              .addField("Commandes compatibles :", "`$Baka` : $baka <user> buy ; outrepasse le cooldown \nCoût : 100 coins \n`$Meme` : $meme buy ; outrepasse le cooldown \nCoût : 100 coins \n`$Skip` : Permet de skip pour les non-Admin \nCoût : 200 coins \n`$AddfaitsDivers` : Permet d'ajouter un Faits Divers pour les non-Admin \nCoût : 1250 coins")
+        message.channel.send(embed)
     }
 
     static get (message, coins) {
