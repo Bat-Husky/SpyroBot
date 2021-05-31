@@ -3,7 +3,7 @@ const fs = require('fs');
 
 module.exports = {
     async execute(Discord, bot, OwnerGuildID) {
-        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+        bot.api.applications(bot.user.id).guilds("your guild id").commands.post({
             data: {
                 name: "baka",
                 description: "An insult command",
@@ -18,21 +18,21 @@ module.exports = {
             }
         });
 
-        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+        bot.api.applications(bot.user.id).guilds("your guild id").commands.post({
             data: {
                 name: "faitsdivers",
                 description: "A command that send Faits Divers"
             }
         });
 
-        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+        bot.api.applications(bot.user.id).guilds("your guild id").commands.post({
             data: {
                 name: "info",
                 description: "Give info about SpyroBot"
             }
         });
 
-        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+        bot.api.applications(bot.user.id).guilds("your guild id").commands.post({
             data: {
                 name: "clear",
                 description: "A command to clear",
@@ -44,6 +44,13 @@ module.exports = {
                         required: true
                     }
                 ]
+            }
+        });
+        
+        bot.api.applications(bot.user.id).guilds("621427447879172096").commands.post({
+            data: {
+                name: "help",
+                description: "Give info about SpyroBot's commands"
             }
         });
     
@@ -162,6 +169,48 @@ module.exports = {
                         data: {
                             embeds: [
                                 sendmsg
+                            ]
+                        }
+                    }
+                })
+            } else if (command === 'help') {
+                
+                const top = new MessageEmbed()
+                    .setColor("#0042ff")
+                    .setTitle("SpyroBot's Commands")
+                    .setDescription("Voici toutes les commandes de SpyroBot, le préfix du bot est `$`. \nVous pouvez pin un message en réagissant à celui-ci avec 📌.")
+                
+                const general = new MessageEmbed()
+                    .setColor("#0042ff")
+                    .setTitle("Général :")
+                    .setDescription("`$info` : Donne des info sur le bot. \n`$Coin info` : Donne des info sur la commande $coin \n`$cmdStatus` permet de désactiver certaines commandes \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
+
+                const useless = new MessageEmbed()
+                    .setColor("#0042ff")
+                    .setTitle("☣ Useless  :")
+                    .setDescription("`$Givexp` : cette commande vous troll, tout simplement. \n`$tonbotestmalfoutu` : ne sert à rien ; rajouter set pour modifier. \n`$baka` : $baka <@user> ; insulte les autres. \n`$meme` : envoie des memes \n`$FaitsDivers` : Vous donne des faits divers. \n`$run info` : Donne des infos sur la commande run. \n`$diagonale` : Insulte la diagonale.")
+                
+                const moderation = new MessageEmbed()
+                    .setColor("#0042ff")
+                    .setTitle("🛡 Modération :")
+                    .setDescription("`$Ban` : $Ban <@user> \n`$Kick` : $Kick <@user> \n`$Warn` : $Warn <@user> <reason> \n`$Infractions` : $Infractions <@user> \n`$Clear` : $Clear <amount> ; max 100 \n`$Report` : $Report <user> <reason> ; (everyone) \n`$LogsChannel` : $LogsChannel <id or name> ; défini le channel des logs.")
+
+                const voice = new MessageEmbed()
+                    .setColor("#0042ff")
+                    .setTitle("🔊 Vocal :")
+                    .setDescription("`$Play` : $Play <link> \n`$Skip` : passe à la musique suivante. \n`$Queue` : donne la liste des chansons sur la queue. \n`$Volume` : $volume <number> \n`$Loop` : Répète les musiques de la queue. \n`$Leave` : quitte le channel. \n`$SetQueueChannel` : $SetQueueChannel <id or name>")
+
+
+                bot.api.interactions(interaction.id, interaction.token).callback.post({
+                    data: {
+                        type: 4,
+                        data: {
+                            embeds: [
+                                top,
+                                general,
+                                useless,
+                                moderation,
+                                voice
                             ]
                         }
                     }
