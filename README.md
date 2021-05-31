@@ -32,21 +32,20 @@ $help
 
 ## Releases
 
-Last Release : `v1.3`
-
+Last Release : `v1.3`<br>
 Last Pre-Release : `v0.4.1,1.3.5`
 
 ### How to read release tag ?
 
-For the normals releases, nothing very difficult.
+For the normals releases, nothing very difficult.<br>
 For the Pre-Release : `0.<beta type>.<beta version>,<stable version>`
 
 #### Beta type 
-`0.0` : Optimization Beta
-`0.1` : Voice Beta
-`0.2` : Experimentals commands/features Beta
-`0.3` : Economy Beta
-`0.4` : Slash commands Beta
+`0.0` : Optimization Beta<br>
+`0.1` : Voice Beta<br>
+`0.2` : Experimentals commands/features Beta<br>
+`0.3` : Economy Beta<br>
+`0.4` : Slash commands Beta<br>
 
 ### Changelogs
 
