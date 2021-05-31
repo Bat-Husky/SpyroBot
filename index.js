@@ -156,9 +156,9 @@ async function execute(message, serverQueue) {
   } else {
     serverQueue.songs.push(song);
     const embed = new MessageEmbed()
-                        .setColor("#0042ff")
-                        .addField("Added to the queue", `[${song.title}](${song.url})`)
-                        .addField("From", `${song.author}`)
+        .setColor("#0042ff")
+        .addField("Added to the queue", `[${song.title}](${song.url})`)
+        .addField("From", `${song.author}`)
     return message.channel.send(embed);
   }
 }
