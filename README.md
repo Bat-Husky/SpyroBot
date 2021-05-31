@@ -29,3 +29,25 @@ List of the main commands :
 $info
 $help
 ```
+
+## Releases
+
+Last Release : `v1.3`
+
+Last Pre-Release : `v0.4.1,1.3.5`
+
+### How to read release tag ?
+
+For the normals releases, nothing very difficult.
+For the Pre-Release : `0.<beta type>.<beta version>,<stable version>`
+
+#### Beta type 
+`0.0` : Optimization Beta
+`0.1` : Voice Beta
+`0.2` : Experimentals commands/features Beta
+`0.3` : Economy Beta
+`0.4` : Slash commands Beta
+
+### Changelogs
+
+Currently, releases changelogs can only be found on my [Discord server](https://discord.gg/kcb3jke)
