@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core')
 const fs = require('fs');
 const bot = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION" ]})
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix, token, OwnerID } = require('./JSON/config.json');
+const { prefix, token, OwnerID, OwnerGuildID } = require('./JSON/config.json');
 const Help = require('./commands/Help');
 const SpyroBot = require('./commands/SpyroBot');
 const Givexp = require('./commands/givexp');
@@ -29,6 +29,7 @@ const runTest = require('./commands/runforlife');
 const cmdStatus = require('./commands/onoff');
 const Pin = require('./commands/pin');
 const Coin = require('./commands/coin');
+const SlashCommands = require('./commands/SlashCommands');
 
 const queue = new Map();
 
@@ -39,6 +40,7 @@ bot.on('ready', function () {
     React.execute(Discord, bot)
     Join.execute(Discord, bot)
     Pin.execute(Discord, bot)
+    SlashCommands.execute(Discord, bot, OwnerGuildID)
 })
 
 
