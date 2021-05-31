@@ -11,17 +11,17 @@ module.exports = class Help extends commands {
         const top = new MessageEmbed()
             .setColor("#0042ff")
             .setTitle("SpyroBot's Commands")
-            .setDescription("Voici toutes les commandes de SpyroBot, le préfix du bot est `$`.")
+            .setDescription("Voici toutes les commandes de SpyroBot, le préfix du bot est `$`. \nVous pouvez pin un message en réagissant à celui-ci avec 📌.")
          
         const general = new MessageEmbed()
             .setColor("#0042ff")
             .setTitle("Général :")
-            .setDescription("`$info` : Donne des info sur le bot. \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
+            .setDescription("`$info` : Donne des info sur le bot. \n`$Coin info` : Donne des info sur la commande $coin \n`$cmdStatus` permet de désactiver certaines commandes \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
 
         const useless = new MessageEmbed()
             .setColor("#0042ff")
             .setTitle("☣ Useless  :")
-            .setDescription("`$Givexp` : cette commande vous troll, tout simplement. \n`$tonbotestmalfoutu` : ne sert à rien. \n`$baka` : $baka <@user> ; insulte les autres. \n`$meme` : envoie des memes \n`$FaitsDivers` : Vous donne des faits divers. \n`$run info` : Donne des infos sur la commande run. \n`$diagonale` : Insulte la diagonale.")
+            .setDescription("`$Givexp` : cette commande vous troll, tout simplement. \n`$tonbotestmalfoutu` : ne sert à rien ; rajouter set pour modifier. \n`$baka` : $baka <@user> ; insulte les autres. \n`$meme` : envoie des memes \n`$FaitsDivers` : Vous donne des faits divers. \n`$run info` : Donne des infos sur la commande run. \n`$diagonale` : Insulte la diagonale.")
         
         const moderation = new MessageEmbed()
             .setColor("#0042ff")
