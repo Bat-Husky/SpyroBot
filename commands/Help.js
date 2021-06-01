@@ -16,7 +16,7 @@ module.exports = class Help extends commands {
         const general = new MessageEmbed()
             .setColor("#0042ff")
             .setTitle("Général :")
-            .setDescription("`$info` : Donne des info sur le bot. \n`$Coin info` : Donne des info sur la commande $coin \n`$cmdStatus` permet de désactiver certaines commandes \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
+            .setDescription("`$info` : Donne des info sur le bot. \n`$Constitution` : Envoie le fichier de la constitution. \n`$Coin info` : Donne des info sur la commande $coin \n`$cmdStatus` permet de désactiver certaines commandes \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
 
         const useless = new MessageEmbed()
             .setColor("#0042ff")
