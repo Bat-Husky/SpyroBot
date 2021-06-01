@@ -12,38 +12,49 @@ module.exports = {
 
             if (command === 'baka'){
                 const mention = interaction.data.options[0];
+                var admin = false;
                 
-                if (mention) {
-                    let userID = mention["value"].split('!')[1];
-                    userID = userID.replace(">", "");
-                    const member = guild.members.cache.find(member => member.id == userID);
-                    if (member) {
-                        if (interaction.member.permissions == 17179869183) {
-                            tts = true
-                        }
-                        var nombreAleatoire = Math.round(Math.random()*8);
-                        if(nombreAleatoire === 1) {
-                            sendmsg = `${member} est une grosse merde`
-                        } else if (nombreAleatoire === 2) {
-                            sendmsg = `${member} va bouffer ses grands morts`
-                        } else if (nombreAleatoire === 3) {
-                            sendmsg = `${member} est juste un énorme ABRUTI`
-                        } else if (nombreAleatoire === 4) {
-                            sendmsg = `${member} est une PÉTASSE`
-                        } else if (nombreAleatoire === 5) {
-                            sendmsg = `${member} est un sale gueux`
-                        } else if (nombreAleatoire === 6) {
-                            sendmsg = `${member} a un balai dans l'cul`
-                        } else if (nombreAleatoire === 7) {
-                            sendmsg = `${member} est une ordure`
+                if (interaction.member.permissions == 17179869183) {
+                    tts = true
+                    admin = true;
+                }
+                if (admin == true || !talkedRecently.has(interaction.member.user.id)) {
+                    if (mention) {
+                        let userID = mention["value"].split('!')[1];
+                        userID = userID.replace(">", "");
+                        const member = guild.members.cache.find(member => member.id == userID);
+                        if (member) {
+                            
+                            var nombreAleatoire = Math.round(Math.random()*8);
+                            if(nombreAleatoire === 1) {
+                                sendmsg = `${member} est une grosse merde`
+                            } else if (nombreAleatoire === 2) {
+                                sendmsg = `${member} va bouffer ses grands morts`
+                            } else if (nombreAleatoire === 3) {
+                                sendmsg = `${member} est juste un énorme ABRUTI`
+                            } else if (nombreAleatoire === 4) {
+                                sendmsg = `${member} est une PÉTASSE`
+                            } else if (nombreAleatoire === 5) {
+                                sendmsg = `${member} est un sale gueux`
+                            } else if (nombreAleatoire === 6) {
+                                sendmsg = `${member} a un balai dans l'cul`
+                            } else if (nombreAleatoire === 7) {
+                                sendmsg = `${member} est une ordure`
+                            } else {
+                                sendmsg = `${member} est un sale gougnafier`
+                            }
+                            talkedRecently.add(interaction.member.user.id);
+                                setTimeout(() => {
+                            talkedRecently.delete(interaction.member.user.id);
+                            }, 60000);
                         } else {
-                            sendmsg = `${member} est un sale gougnafier`
+                            sendmsg = "Il n'est pas sur le serveur !"
                         }
                     } else {
-                        sendmsg = "Il n'est pas sur le serveur !"
+                        sendmsg = "Vous n'avez mentionné personne !"
                     }
                 } else {
-                    sendmsg = "Vous n'avez mentionné personne !"
+                    sendmsg = "Wait a minute before tryng again"
                 }
 
                 bot.api.interactions(interaction.id, interaction.token).callback.post({
