@@ -3,22 +3,98 @@ const fs = require('fs');
 
 module.exports = {
     async execute(Discord, bot, OwnerGuildID) {
+        /*
+        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+            data: {
+                name: "baka",
+                description: "An insult command",
+                options: [
+                    {
+                        name: "user",
+                        description: "The user to insult",
+                        type: 3,
+                        required: true
+                    }
+                ]
+            }
+        });
+
+        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+            data: {
+                name: "faitsdivers",
+                description: "A command that send Faits Divers"
+            }
+        });
+
+        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+            data: {
+                name: "info",
+                description: "Give info about SpyroBot"
+            }
+        });
+
+        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+            data: {
+                name: "clear",
+                description: "A command to clear",
+                options: [
+                    {
+                        name: "amount",
+                        description: "the number of message to delete",
+                        type: 3,
+                        required: true
+                    }
+                ]
+            }
+        });
         
+        bot.api.applications(bot.user.id).guilds("621427447879172096").commands.post({
+            data: {
+                name: "help",
+                description: "Give info about SpyroBot's commands"
+            }
+        });
+        
+        bot.api.applications(bot.user.id).guilds("621427447879172096").commands.post({
+            data: {
+                name: "warn",
+                description: "A command to warn",
+                options: [
+                    {
+                        name: "user",
+                        description: "the user to warn",
+                        type: 3,
+                        required: true
+                    },
+                    {
+                        name: "reason",
+                        description: "the reason of the warn",
+                        type: 3,
+                        required: true
+                    }
+                ]
+            }
+        });*/
+
+    
         bot.ws.on('INTERACTION_CREATE', async interaction => {
             const command = interaction.data.name.toLowerCase();
             const guild = bot.guilds.cache.get(OwnerGuildID)
             var sendmsg;
+            var tts;
 
             if (command === 'baka'){
                 const mention = interaction.data.options[0];
                 
                 if (mention) {
-                    let userID = mention["value"].split('!')[1]
-                    userID = userID.replace(">", "")
-                    const member = guild.members.cache.find(member => member.id == userID)
+                    let userID = mention["value"].split('!')[1];
+                    userID = userID.replace(">", "");
+                    const member = guild.members.cache.find(member => member.id == userID);
                     if (member) {
+                        if (interaction.member.permissions == 17179869183) {
+                            tts = true
+                        }
                         var nombreAleatoire = Math.round(Math.random()*8);
-                        var reponse;
                         if(nombreAleatoire === 1) {
                             sendmsg = `${member} est une grosse merde`
                         } else if (nombreAleatoire === 2) {
@@ -47,6 +123,7 @@ module.exports = {
                     data: {
                         type: 4,
                         data: {
+                            tts: tts,
                             content: sendmsg
                         }
                     }
@@ -164,6 +241,85 @@ module.exports = {
                         }
                     }
                 })
+            } else if (command === 'warn') {
+                
+                if (interaction.member.permissions == 17179869183) {
+                    let mention = interaction.data.options[0];
+                    let userID = mention["value"].split('!')[1];
+                    userID = userID.replace(">", "");
+                    const member = guild.members.cache.find(member => member.id == userID);
+
+                    let logsChannels = JSON.parse(fs.readFileSync("./JSON/LogsChannels.json", "utf8"));
+
+                    if (logsChannels[guild.id] && guild.channels.cache.find(ch => ch.name == logsChannels[guild.id]) || guild.channels.cache.find(ch => ch.id == logsChannels[guild.id])) {
+                        let warns = JSON.parse(fs.readFileSync("./JSON/Warning.json", "utf8"));
+
+                        if(!warns[member.id]) warns[member.id] = {
+                            warns: 0
+                        };
+
+                        warns[member.id].warns++;
+
+                        fs.writeFile("./JSON/Warning.json", JSON.stringify(warns), (err) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+
+                        sendmsg = new MessageEmbed()
+                            .setDescription("Warns")
+                            .setAuthor(`From ${interaction.member.user.username}`)
+                            .setColor("#0042ff")
+                            .addField("Warned User", member)
+                            .addField("Reason", interaction.data.options[1].value)
+
+                        const warnChannel = guild.channels.cache.find(ch => ch.name == logsChannels[guild.id]) || guild.channels.cache.find(ch => ch.id == logsChannels[guild.id])
+                        const channel = guild.channels.cache.find(ch => ch.id == interaction.channel_id);
+
+                        const warnEmbedLogs = new MessageEmbed()
+                            .setDescription("Warns")
+                            .setAuthor(`From ${interaction.member.user.username}`)
+                            .setColor("#0042ff")
+                            .addField("Warned User", member)
+                            .addField("Warned in", channel)
+                            .addField("Number of Warnings", warns[member.id].warns)
+                            .addField("Reason", interaction.data.options[1].value)
+                        warnChannel.send(warnEmbedLogs);
+
+                        bot.api.interactions(interaction.id, interaction.token).callback.post({
+                            data: {
+                                type: 4,
+                                data: {
+                                    embeds: [
+                                        sendmsg
+                                    ]
+                                }
+                            }
+                        })
+                    } else {
+                        sendmsg = "Définnissez le channel des logs comme ceci : \n`$LogsChannel <id or name>`"
+
+                        bot.api.interactions(interaction.id, interaction.token).callback.post({
+                            data: {
+                                type: 4,
+                                data: {
+                                    content: sendmsg
+                                }
+                            }
+                        })
+                    }
+                } else {
+                    sendmsg = "You can't use that command!";
+
+                    bot.api.interactions(interaction.id, interaction.token).callback.post({
+                        data: {
+                            type: 4,
+                            data: {
+                                content: sendmsg
+                            }
+                        }
+                    })
+                }
             }
         });
     }
