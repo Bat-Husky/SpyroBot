@@ -3,58 +3,7 @@ const fs = require('fs');
 
 module.exports = {
     async execute(Discord, bot, OwnerGuildID) {
-        bot.api.applications(bot.user.id).guilds("your guild id").commands.post({
-            data: {
-                name: "baka",
-                description: "An insult command",
-                options: [
-                    {
-                        name: "user",
-                        description: "The user to insult",
-                        type: 3,
-                        required: true
-                    }
-                ]
-            }
-        });
-
-        bot.api.applications(bot.user.id).guilds("your guild id").commands.post({
-            data: {
-                name: "faitsdivers",
-                description: "A command that send Faits Divers"
-            }
-        });
-
-        bot.api.applications(bot.user.id).guilds("your guild id").commands.post({
-            data: {
-                name: "info",
-                description: "Give info about SpyroBot"
-            }
-        });
-
-        bot.api.applications(bot.user.id).guilds("your guild id").commands.post({
-            data: {
-                name: "clear",
-                description: "A command to clear",
-                options: [
-                    {
-                        name: "amount",
-                        description: "the number of message to delete",
-                        type: 3,
-                        required: true
-                    }
-                ]
-            }
-        });
         
-        bot.api.applications(bot.user.id).guilds("621427447879172096").commands.post({
-            data: {
-                name: "help",
-                description: "Give info about SpyroBot's commands"
-            }
-        });
-    
-    
         bot.ws.on('INTERACTION_CREATE', async interaction => {
             const command = interaction.data.name.toLowerCase();
             const guild = bot.guilds.cache.get(OwnerGuildID)
