@@ -1,6 +1,6 @@
 {
   "prefix": "prefix",
   "token": "insert token here"
-  "OwnerID": 467284102987382784,
-  "OwnerGuildID": "Your guild ID here"
+  "OwnerID": "A int value [no quote]",
+  "OwnerGuildID": "Your guild ID here [with quote]"
 }
