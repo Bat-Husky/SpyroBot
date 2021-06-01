@@ -29,6 +29,7 @@ const runTest = require('./commands/runforlife');
 const cmdStatus = require('./commands/onoff');
 const Pin = require('./commands/pin');
 const Coin = require('./commands/coin');
+const Constitution = require('./commands/Constitution');
 
 const queue = new Map();
 
@@ -69,7 +70,7 @@ bot.on('message', async message => {
   || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) 
   || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Diagonale.parse(message, prefix) || Report.parse(message, prefix) 
   || LogsChannel.parse(message, prefix) || QueueChannel.parse(message, prefix) || FaitsDivers.parse(message, prefix) || AddFaitsDivers.parse(message, prefix) 
-  || runTest.parse(message, prefix) || cmdStatus.parse(message, prefix) || Coin.parse(message, prefix);
+  || runTest.parse(message, prefix) || cmdStatus.parse(message, prefix) || Coin.parse(message, prefix) || Constitution.parse(message, prefix);
 
   const serverQueue = queue.get(message.guild.id);
 
