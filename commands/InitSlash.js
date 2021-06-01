@@ -45,7 +45,7 @@ module.exports = {
             }
         });
         
-        bot.api.applications(bot.user.id).guilds("621427447879172096").commands.post({
+        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
             data: {
                 name: "help",
                 description: "Give info about SpyroBot's commands"
