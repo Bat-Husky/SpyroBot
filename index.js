@@ -30,6 +30,7 @@ const cmdStatus = require('./commands/onoff');
 const Pin = require('./commands/pin');
 const Coin = require('./commands/coin');
 const SlashCommands = require('./commands/SlashCommands');
+const InitSlash = require('./commands/InitSlash');
 
 const queue = new Map();
 
@@ -41,6 +42,7 @@ bot.on('ready', function () {
     Join.execute(Discord, bot)
     Pin.execute(Discord, bot)
     SlashCommands.execute(Discord, bot, OwnerGuildID)
+    InitSlash.execute(Discord, bot, OwnerGuildID)
 })
 
 
