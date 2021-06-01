@@ -15,9 +15,8 @@ Add SpyroBot to your server by clicking here : [Invite Link](https://discordapp.
 
 ## Setup
 
-Download this code, put your information in JSON/config.json or it will not work. Finally, launch the bot with **nodejs** as below.
-
-PS : `OwnerGuildID` is crucial for slash commands
+Download this code, put your information in JSON/config.json or it will not work. Finally, launch the bot with **nodejs** as below.<br>
+PS : `OwnerGuildID` is crucial for slash commands, you need to put quote when you set the variable.
 
 ```bash
 node index.js
