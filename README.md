@@ -11,7 +11,7 @@ SpyroBot is a little Discord bot that I created. For more info, you can invite t
 
 ## Installation
 
-Add SpyroBot to your server by clicking here : [Invite Link](https://discordapp.com/oauth2/authorize?client_id=622872629371731970&scope=bot&permissions=8)
+Add SpyroBot to your server by clicking here : [Invite Link](https://discord.com/api/oauth2/authorize?client_id=622872629371731970&permissions=8&redirect_uri=https%3A%2F%2Fdiscordapp.com%2Fapi%2Foauth2%2Fauthorize%3Fclient_id%3D622872629371731970%26permissions%3D8%26scope%3Dbot&scope=bot%20applications.commands)
 
 ## Setup
 
