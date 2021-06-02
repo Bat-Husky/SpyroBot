@@ -2,7 +2,7 @@ const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
 
 module.exports = {
-    async execute(Discord, bot, OwnerGuildID) {
+    async execute(bot, OwnerGuildID, OwnerID, prefix) {
             
         bot.ws.on('INTERACTION_CREATE', async interaction => {
             const command = interaction.data.name.toLowerCase();
@@ -277,6 +277,25 @@ module.exports = {
                         }
                     })
                 }
+            } else if (command === 'ping') {
+                
+                if (interaction.member.user.id == OwnerID) {
+                    bot.user.setActivity(`${prefix}help`, { type: 'WATCHING' });
+                    // const testChannel = guild.channels.cache.find(ch => ch.name === 'test');
+                    let Time = Math.round((bot.uptime / 60000) * 1000) / 1000
+                    sendmsg = `\`\`\`fix\nPing réussi ! \n\`\`\` \nUptime : \`${Time} minutes\``
+                } else {
+                    sendmsg = "You can't use that command!"
+                }
+
+                bot.api.interactions(interaction.id, interaction.token).callback.post({
+                    data: {
+                        type: 4,
+                        data: {
+                            content: sendmsg
+                        }
+                    }
+                })
             }
         });
     }
