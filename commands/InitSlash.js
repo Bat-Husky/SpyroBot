@@ -81,5 +81,12 @@ module.exports = {
             }
         });
         
+        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+            data: {
+                name: "ping",
+                description: "Ping le bot"
+            }
+        });
+        
     }
 }
