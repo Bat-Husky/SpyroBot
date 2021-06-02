@@ -41,7 +41,7 @@ bot.on('ready', function () {
     React.execute(Discord, bot)
     Join.execute(Discord, bot)
     Pin.execute(Discord, bot)
-    SlashCommands.execute(Discord, bot, OwnerGuildID)
+    SlashCommands.execute(bot, OwnerGuildID, OwnerID, prefix)
     InitSlash.execute(Discord, bot, OwnerGuildID)
 })
 
