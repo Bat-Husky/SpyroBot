@@ -138,6 +138,7 @@ module.exports = {
                     }
                 })
             } else if (command === 'help') {
+                const member = guild.members.cache.find(member => member.id == interaction.member.user.id);
                 
                 const top = new MessageEmbed()
                     .setColor("#0042ff")
@@ -165,20 +166,38 @@ module.exports = {
                     .setDescription("`$Play` : $Play <link> \n`$Skip` : passe à la musique suivante. \n`$Queue` : donne la liste des chansons sur la queue. \n`$Volume` : $volume <number> \n`$Loop` : Répète les musiques de la queue. \n`$Leave` : quitte le channel. \n`$SetQueueChannel` : $SetQueueChannel <id or name>")
 
 
-                bot.api.interactions(interaction.id, interaction.token).callback.post({
-                    data: {
-                        type: 4,
+                if (interaction.data.options && interaction.data.options[0].value == "true") {
+
+                    member.send(top) && member.send(general) && member.send(useless) && member.send(moderation) && member.send(voice)
+
+                    bot.api.interactions(interaction.id, interaction.token).callback.post({
                         data: {
-                            embeds: [
-                                top,
-                                general,
-                                useless,
-                                moderation,
-                                voice
-                            ]
+                            type: 4,
+                            data: {
+                                content: "DM sent!"
+                            }
                         }
-                    }
-                })
+                    })
+
+                } else {
+
+                    bot.api.interactions(interaction.id, interaction.token).callback.post({
+                        data: {
+                            type: 4,
+                            data: {
+                                embeds: [
+                                    top,
+                                    general,
+                                    useless,
+                                    moderation,
+                                    voice
+                                ]
+                            }
+                        }
+                    })
+
+                }
+                
             } else if (command === 'warn') {
                 
                 if (interaction.member.permissions == 17179869183) {
