@@ -48,7 +48,15 @@ module.exports = {
         bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
             data: {
                 name: "help",
-                description: "Give info about SpyroBot's commands"
+                description: "Give info about SpyroBot's commands",
+                options: [
+                    {
+                        name: "mp",
+                        description: "Enter true if you want to receive in mp.",
+                        type: 3,
+                        required: false
+                    }
+                ]
             }
         });
         
