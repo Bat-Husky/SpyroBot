@@ -11,7 +11,7 @@ module.exports = class SpyroBot extends commands {
     }
 
     static action (message) {
-        message.channel.send("Voice la constitution du serveur :", 
+        message.channel.send("Voici la constitution du serveur :", 
             {
                 files: 
                 [
