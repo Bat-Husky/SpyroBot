@@ -12,9 +12,9 @@ module.exports = {
 
             if (reaction.emoji.name !== pinEmoji) return;
 
-            message = reaction.message;
+            let message = reaction.message;
 
-            message.reactions.removeAll();
+            reaction.remove();
 
             if (!reaction.message.guild.members.cache.get(user.id).hasPermission("MANAGE_CHANNELS")) {
                 return message.reply("Vous n'avez pas les permissions").then((sent) => {
