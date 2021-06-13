@@ -1,13 +1,15 @@
 # SpyroBot
-
-[![Discord](https://img.shields.io/discord/621427447879172096?color=697EC6&label=Discord&logo=Discord)](https://discord.gg/kcb3jke)
-![GitHub repo size](https://img.shields.io/github/repo-size/Bat-Husky/SpyroBot?label=Code%20size)
-![GitHub last commit](https://img.shields.io/github/last-commit/Bat-Husky/SpyroBot?color=cyan&label=Last%20Commit&logo=Visual%20Studio%20Code&logoColor=blue)
-![GitHub Release Date](https://img.shields.io/github/release-date/Bat-Husky/SpyroBot?color=2AA198&label=Last%20Release&logo=JavaScript)
-
+  
 <p align="center">
   <img src="https://bat-husky.github.io/spyrobot_github.png">
 </p>
+
+<div align="center">
+  <img alt="Discord" src="https://img.shields.io/discord/621427447879172096?color=697EC6&label=Discord&logo=Discord">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Bat-Husky/SpyroBot?label=Code%20size">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Bat-Husky/SpyroBot?color=cyan&label=Last%20Commit&logo=Visual%20Studio%20Code&logoColor=blue">
+  <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/Bat-Husky/SpyroBot?color=2AA198&label=Last%20Release&logo=JavaScript">
+</div>
 
 SpyroBot is a little Discord bot that I created. For more info, you can invite the bot.
 
