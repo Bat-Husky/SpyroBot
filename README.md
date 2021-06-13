@@ -2,6 +2,9 @@
 
 [![Discord](https://img.shields.io/discord/621427447879172096?color=697EC6&label=Discord&logo=Discord)](https://discord.gg/kcb3jke)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Bat-Husky/SpyroBot?label=Code%20size)
+![GitHub last commit](https://img.shields.io/github/last-commit/Bat-Husky/SpyroBot?color=cyan&label=Last%20Commit&logo=Visual%20Studio%20Code&logoColor=blue)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/Bat-Husky/SpyroBot/Slash-Commands?color=EF5859&label=Last%20Branch%20Commit&logo=StackShare&logoColor=40C4F7)
+![GitHub Release Date](https://img.shields.io/github/release-date/Bat-Husky/SpyroBot?color=2AA198&label=Last%20Release&logo=JavaScript)
 
 <p align="center">
   <img src="https://bat-husky.github.io/spyrobot_github.png">
