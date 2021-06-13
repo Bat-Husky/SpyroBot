@@ -10,6 +10,7 @@
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Bat-Husky/SpyroBot?color=cyan&label=Last%20Commit&logo=Visual%20Studio%20Code&logoColor=blue">
   <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/Bat-Husky/SpyroBot?color=2AA198&label=Last%20Release&logo=JavaScript">
 </div>
+<br>
 
 SpyroBot is a little Discord bot that I created. For more info, you can invite the bot.
 
