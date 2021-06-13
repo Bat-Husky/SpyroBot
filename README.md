@@ -2,6 +2,7 @@
 
 [![Discord](https://img.shields.io/discord/621427447879172096?color=697EC6&label=Discord&logo=Discord)](https://discord.gg/kcb3jke)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Bat-Husky/SpyroBot?label=Code%20size)
+![GitHub last commit](https://img.shields.io/github/last-commit/Bat-Husky/SpyroBot?color=cyan&logo=Visual%20Studio%20Code&logoColor=blue)
 
 <p align="center">
   <img src="https://bat-husky.github.io/spyrobot_github.png">
