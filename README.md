@@ -1,7 +1,7 @@
 # SpyroBot
   
 <p align="center">
-  <img src="https://bat-husky.github.io/spyrobot_github.png">
+  <img src="./Img/SpyroBot-github.png">
 </p>
 
 <div align="center">
