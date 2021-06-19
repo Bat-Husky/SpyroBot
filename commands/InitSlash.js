@@ -9,13 +9,13 @@ module.exports = {
                     {
                         name: "user",
                         description: "The user to insult",
-                        type: 3,
+                        type: 6,
                         required: true
                     }
                 ]
             }
         });
-
+        
         bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
             data: {
                 name: "faitsdivers",
@@ -29,7 +29,7 @@ module.exports = {
                 description: "Give info about SpyroBot"
             }
         });
-
+        
         bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
             data: {
                 name: "clear",
@@ -38,23 +38,49 @@ module.exports = {
                     {
                         name: "amount",
                         description: "the number of message to delete",
-                        type: 3,
+                        type: 4,
                         required: true
                     }
                 ]
             }
         });
         
-        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+        bot.api.applications(bot.user.id).guilds("621427447879172096").commands.post({
             data: {
                 name: "help",
                 description: "Give info about SpyroBot's commands",
                 options: [
                     {
-                        name: "mp",
-                        description: "Enter true if you want to receive in mp.",
+                        name: "slash",
+                        description: "If you want to receive the Slash Commands list.",
                         type: 3,
-                        required: false
+                        required: false,
+                        choices: [
+                            {
+                                name: 'Yes',
+                                value: 'true',
+                            },
+                            {
+                                name: 'No',
+                                value: 'false',
+                            }
+                        ]
+                    },
+                    {
+                        name: "mp",
+                        description: "If you want to receive in mp.",
+                        type: 3,
+                        required: false,
+                        choices: [
+                            {
+                                name: 'Yes',
+                                value: 'true',
+                            },
+                            {
+                                name: 'No',
+                                value: 'false',
+                            }
+                        ]
                     }
                 ]
             }
@@ -68,7 +94,7 @@ module.exports = {
                     {
                         name: "user",
                         description: "the user to warn",
-                        type: 3,
+                        type: 6,
                         required: true
                     },
                     {
@@ -85,6 +111,21 @@ module.exports = {
             data: {
                 name: "ping",
                 description: "Ping le bot"
+            }
+        });
+        
+        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+            data: {
+                name: "infractions",
+                description: "A command to see warns",
+                options: [
+                    {
+                        name: "user",
+                        description: "the user to see warns",
+                        type: 6,
+                        required: true
+                    }
+                ]
             }
         });
         
