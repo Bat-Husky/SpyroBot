@@ -120,7 +120,7 @@ async function execute(message, serverQueue) {
   const song = {
         title: songInfo.videoDetails.title,
         url: songInfo.videoDetails.video_url,
-        author: message.member;
+        author: message.member
   };
 
   if (!serverQueue) {
