@@ -53,6 +53,7 @@ For the Pre-Release : `0.<beta type>.<beta version>,<stable version>`
 `0.2` : Experimentals commands/features Beta<br>
 `0.3` : Economy Beta<br>
 `0.4` : Slash commands Beta<br>
+`0.5` : Level System Beta<br>
 
 ### Changelogs
 
