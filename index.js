@@ -4,32 +4,7 @@ const fs = require('fs');
 const bot = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION" ]})
 const { Client, MessageEmbed } = require('discord.js');
 const { prefix, token, OwnerID } = require('./JSON/config.json');
-const Help = require('./commands/Help');
-const SpyroBot = require('./commands/SpyroBot');
-const Givexp = require('./commands/givexp');
-const MalFoutu = require('./commands/malfoutu');
-const Ban = require('./commands/ban');
-const Kick = require('./commands/kick');
-const Warn = require('./commands/Warn');
-const Infractions = require('./commands/Infractions');
-const Meme = require('./commands/meme');
-const Baka = require('./commands/baka');
-const Clear = require('./commands/Clear');
-const Crash = require('./commands/Crash');
-const Reaction = require('./commands/ReactionRole');
-const Diagonale = require('./commands/diagonale');
-const React = require('./commands/react');
-const Join = require('./commands/join');
-const Report = require('./commands/report');
-const LogsChannel = require('./commands/logsChannel');
-const QueueChannel = require('./commands/QueueChannel');
-const FaitsDivers = require('./commands/FaitsDivers');
-const AddFaitsDivers = require('./commands/AddFaitsDivers');
-const runTest = require('./commands/runforlife');
-const cmdStatus = require('./commands/onoff');
-const Pin = require('./commands/pin');
-const Coin = require('./commands/coin');
-const Constitution = require('./commands/Constitution');
+const AllCMD = require('./other/stockCMD');
 
 const queue = new Map();
 
@@ -37,9 +12,12 @@ const queue = new Map();
 bot.on('ready', function () {
     console.log("Ready!");
     bot.user.setActivity("crash", { type: 'PLAYING' })
-    React.execute(Discord, bot)
-    Join.execute(Discord, bot)
-    Pin.execute(Discord, bot)
+    AllCMD.React.execute(Discord, bot)
+    AllCMD.ReactRules.execute(Discord, bot)
+    AllCMD.Join.execute(Discord, bot)
+    AllCMD.Pin.execute(Discord, bot)
+    AllCMD.SlashCommands.execute(bot, OwnerGuildID, OwnerID, prefix)
+    AllCMD.InitSlash.execute(Discord, bot, OwnerGuildID)
 })
 
 
@@ -66,11 +44,12 @@ bot.on('message', async message => {
   if (!message.guild) return;
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
-  let commandUsed = SpyroBot.parse(message, prefix) || Givexp.parse(message, prefix) || Help.parse(message, prefix) || MalFoutu.parse(message, prefix) 
-  || Kick.parse(message, prefix) || Ban.parse(message, prefix) || Warn.parse(message, prefix) || Infractions.parse(message, prefix) || Baka.parse(message, prefix) 
-  || Meme.parse(message, prefix) || Clear.parse(message, prefix) || Crash.parse(message, prefix) || Diagonale.parse(message, prefix) || Report.parse(message, prefix) 
-  || LogsChannel.parse(message, prefix) || QueueChannel.parse(message, prefix) || FaitsDivers.parse(message, prefix) || AddFaitsDivers.parse(message, prefix) 
-  || runTest.parse(message, prefix) || cmdStatus.parse(message, prefix) || Coin.parse(message, prefix) || Constitution.parse(message, prefix);
+  let commandUsed = AllCMD.SpyroBot.parse(message, prefix) || AllCMD.Givexp.parse(message, prefix) || AllCMD.Help.parse(message, prefix) || AllCMD.MalFoutu.parse(message, prefix) 
+  || AllCMD.Kick.parse(message, prefix) || AllCMD.Ban.parse(message, prefix) || AllCMD.Warn.parse(message, prefix) || AllCMD.Infractions.parse(message, prefix) || AllCMD.Baka.parse(message, prefix) 
+  || AllCMD.Meme.parse(message, prefix) || AllCMD.Clear.parse(message, prefix) || AllCMD.Crash.parse(message, prefix) || AllCMD.Diagonale.parse(message, prefix) || AllCMD.Report.parse(message, prefix) 
+  || AllCMD.LogsChannel.parse(message, prefix) || AllCMD.QueueChannel.parse(message, prefix) || AllCMD.FaitsDivers.parse(message, prefix) || AllCMD.AddFaitsDivers.parse(message, prefix) 
+  || AllCMD.runTest.parse(message, prefix) || AllCMD.cmdStatus.parse(message, prefix) || AllCMD.Coin.parse(message, prefix) || AllCMD.Constitution.parse(message, prefix) || AllCMD.OpenPattern.parse(message, prefix) 
+  || AllCMD.Focus.parse(message, prefix) || AllCMD.RulesCommand.parse(message, prefix);
 
   const serverQueue = queue.get(message.guild.id);
 
@@ -96,10 +75,16 @@ bot.on('message', async message => {
     ping(message);
     return;
   } else if (message.content.toString().toLowerCase().startsWith(`${prefix}reaction`)) {
-    Reaction.execute(message, Discord, bot);
+    AllCMD.Reaction.execute(message, Discord, bot);
+    return;
+  } else if (message.content.toString().toLowerCase().startsWith(`${prefix}reactrules`)) {
+    AllCMD.ReactionRules.execute(message, Discord, bot);
     return;
   } else if (message.content.toString().toLowerCase().startsWith(`${prefix}info`)) {
     info(message);
+    return;
+  } else if (message.content.toString().toLowerCase().startsWith(`${prefix}bots`)) {
+    botsYEY(message);
     return;
   }
 });
@@ -283,6 +268,19 @@ function info(message) {
       { name: 'Running on :', value: `\`${bot.guilds.cache.size} servers\``, inline: true }
     )
   message.channel.send(embed);
+}
+
+function botsYEY(message) {
+  let Stinger = message.guild.members.cache.get('835577703884521523')
+  let JAAJmo = message.guild.members.cache.get('828587649467154452')
+  let ReBot = message.guild.members.cache.get('623244968336818176')
+  let Sus = message.guild.members.cache.get('826447138724642817')
+
+  let moi = message.guild.members.cache.get('467284102987382784')
+  let VBat = message.guild.members.cache.get('437204882123128832')
+  let Mikwel = message.guild.members.cache.get('373801923138158613')
+
+  message.channel.send(`Ce serveur compte de nombreux Bots, néanmoins, certains sont uniques. \nLa quasi-intégralité des commandes et automatisations du serveur sont gérées par des Bots custom : ${bot.user}, ${Stinger} et ${JAAJmo}. \nCes Bots ont été créés respectivement par ${moi}, ${VBat} et ${Mikwel}. Nous les mettons à jour régulièrement, et comme ils sont de notre création, on peut faire ce que l'on veut avec. \nPS : ${ReBot} est la version de test de ${bot.user}, et ${Sus}, celle de ${Stinger}.`)
 }
 
 function ping(message) {
