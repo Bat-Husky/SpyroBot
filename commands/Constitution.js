@@ -11,16 +11,15 @@ module.exports = class SpyroBot extends commands {
     }
 
     static action (message) {
-        message.channel.send("Voici la constitution du serveur :", 
-            {
-                files: 
-                [
-                    {
-                        attachment: './other/Constitution_de_The_Bad-Wolf.docx',
-                        name: 'Constitution_de_The_Bad-Wolf.docx'
-                     }
-                ]
-            }
-        );
+        message.channel.send("Voici la constitution du serveur :", {
+            files: [
+                {
+                    attachment: './other/Constitution_de_The_Bad-Wolf.docx',
+                    name: 'Constitution de The Bad-Wolf.docx'
+                }
+            ]
+        });
+
+        // TODO : v13
     }
 }
