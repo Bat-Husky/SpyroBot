@@ -37,7 +37,7 @@ $help
 
 ## Releases
 
-Last Release : `v1.4`<br>
+Last Release : `v1.5`<br>
 Last Pre-Release : `v0.4.1,1.3.5`
 
 ### How to read release tag ?
