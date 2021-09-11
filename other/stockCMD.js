@@ -34,5 +34,7 @@ module.exports = {
     InitSlash: require('../commands/InitSlash'),
     ReactionRules: require('../commands/ReactionRules'),
     ReactRules: require('../commands/reactRules'),
-    RulesCommand: require('../commands/RulesCommand')
+    RulesCommand: require('../commands/RulesCommand'),
+    xp: require('../commands/xp'),
+    rank: require('../commands/rank')
 }
