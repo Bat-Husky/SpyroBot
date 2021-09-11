@@ -2,4 +2,5 @@
   "prefix": "prefix",
   "token": "insert token here",
   "OwnerID": "A int value [no quote]",
+  "OwnerGuildID": "Your guild ID here [with quote]"
 }

@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core')
 const fs = require('fs');
 const bot = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION" ]})
 const { Client, MessageEmbed } = require('discord.js');
-const { prefix, token, OwnerID } = require('./JSON/config.json');
+const { prefix, token, OwnerID, OwnerGuildID } = require('./JSON/config.json');
 const AllCMD = require('./other/stockCMD');
 
 const queue = new Map();

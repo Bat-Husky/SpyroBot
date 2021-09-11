@@ -1,5 +1,5 @@
 # SpyroBot
-  
+
 <p align="center">
   <img src="./Img/SpyroBot-github.png">
 </p>
@@ -20,7 +20,8 @@ Add SpyroBot to your server by clicking here : [Invite Link](https://discord.com
 
 ## Setup
 
-Download this code, put your information in JSON/config.json or it will not work. Finally, launch the bot with **nodejs** as below.
+Download this code, put your information in JSON/config.json or it will not work. Finally, launch the bot with **nodejs** as below.<br>
+PS : `OwnerGuildID` is crucial for slash commands, you need to put quote when you set the variable.
 
 ```bash
 node index.js
@@ -31,8 +32,8 @@ node index.js
 List of the main commands :
 
 ```
-$info
-$help
+/info
+/help
 ```
 
 ## Releases
