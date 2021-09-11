@@ -18,6 +18,21 @@ module.exports = {
         
         bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
             data: {
+                name: "rank",
+                description: "To know your rank",
+                options: [
+                    {
+                        name: "user",
+                        description: "the user you want to know the rank",
+                        type: 6,
+                        required: false
+                    }
+                ]
+            }
+        });
+        
+        bot.api.applications(bot.user.id).guilds(OwnerGuildID).commands.post({
+            data: {
                 name: "faitsdivers",
                 description: "A command that send Faits Divers"
             }
