@@ -2,6 +2,8 @@ const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const talkedRecently = new Set()
 
+// TODO : v13
+
 module.exports = {
     async execute(bot, OwnerGuildID, OwnerID, prefix) {
     
@@ -149,6 +151,63 @@ module.exports = {
                         }
                     }
                 })
+            } else if (command === 'rank') {
+                
+                let allLevels = JSON.parse(fs.readFileSync("./JSON/Levels.json", "utf8"));
+
+                var User = guild.members.cache.find(member => member.id == interaction.member.user.id);
+
+                if (interaction.data.options) {
+                    let mention = interaction.data.options[0];
+                    User = guild.members.cache.find(member => member.id == mention.value)
+                }
+
+                var rank = 1;
+
+                const Level = allLevels["User"][User.id]["level"]
+
+                if (!allLevels["User"][User.id]) {
+                    return bot.api.interactions(interaction.id, interaction.token).callback.post({
+                        data: {
+                            type: 4,
+                            data: {
+                                content: "Cette personne n'a pas de niveau."
+                            }
+                        }
+                    })
+                }
+
+                for (var i = 0; i < allLevels["List"].length; i++) {
+                    //console.log(allLevels["User"]["467284102987382800"])
+                    if (allLevels["User"][allLevels["List"][i]]["id"] == User.id) {
+                        rank = rank
+                    } else if (allLevels["User"][allLevels["List"][i]]["level"] > Level) {
+                        rank += 1
+                    } else if (allLevels["User"][allLevels["List"][i]]["level"] == Level) {
+                        if (allLevels["User"][allLevels["List"][i]]["xp"] > allLevels["User"][User.id]["xp"]) {
+                            rank += 1
+                        }
+                    }
+                }
+
+                const embed = new MessageEmbed()
+                    .setColor("#0042ff")
+                    .setTitle(`${User.user.tag}`)
+                    .addField("Rank :", `${rank}`)
+                    .addField("Level :", `${allLevels["User"][User.id]["level"]}`)
+                    .addField("XP :", `${allLevels["User"][User.id]["xp"]} / ${allLevels["User"][User.id]["xpLevel"]}`)
+                    .setThumbnail(User.user.avatarURL("png"))
+
+                bot.api.interactions(interaction.id, interaction.token).callback.post({
+                    data: {
+                        type: 4,
+                        data: {
+                            embeds: [
+                                sendmsg
+                            ]
+                        }
+                    }
+                })
             } else if (command === 'help') {
                 const member = guild.members.cache.find(member => member.id == interaction.member.user.id);
                 
@@ -160,7 +219,7 @@ module.exports = {
                 const general = new MessageEmbed()
                     .setColor("#5465FF")
                     .setTitle("Général :")
-                    .setDescription("`$info` : Donne des info sur le bot. \n`$Constitution` : Envoie le fichier de la constitution. \n`$Coin info` : Donne des info sur la commande $coin \n`$cmdStatus` permet de désactiver certaines commandes \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
+                    .setDescription("`$info` : Donne des info sur le bot. \n`$Bots` : Donne des infos sur les bots. \n`$Rank` : Donne le niveau et le rang. \n`$Rules` : Lis les règles ! \n`$Spyro` : $Spyro <code|github|history> ; Donne des infos \n`$Open[Pattern/Code/Info]` : Donne des infos sur OpenBot. \n`$Constitution` : Envoie le fichier de la constitution. \n`$Coin info` : Donne des info sur la commande $coin \n`$cmdStatus` permet de désactiver certaines commandes \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
 
                 const useless = new MessageEmbed()
                     .setColor("#5465FF")
@@ -188,6 +247,7 @@ module.exports = {
                     if (interaction.data.options[1] && interaction.data.options[1].value == "true") {
 
                         member.send(slashHelp)
+                        // member.send({ embeds: [slashHelp] })
     
                         return bot.api.interactions(interaction.id, interaction.token).callback.post({
                             data: {
@@ -218,6 +278,7 @@ module.exports = {
                 if (interaction.data.options && interaction.data.options[1] && interaction.data.options[1].value == "true") {
 
                     member.send(top) && member.send(general) && member.send(useless) && member.send(moderation) && member.send(voice)
+                    // member.send({ embeds: [top] }) && member.send({ embeds: [general] }) && member.send({ embeds: [useless] }) && member.send({ embeds: [moderation] }) && member.send({ embeds: [voice] })
 
                     return bot.api.interactions(interaction.id, interaction.token).callback.post({
                         data: {
@@ -331,6 +392,7 @@ module.exports = {
                     .addField("Number of Warnings", warns[member.id].warns)
                     .addField("Reason", interaction.data.options[1].value)
                 warnChannel.send(warnEmbedLogs);
+                // warnChannel.send({ embeds: [warnEmbedLogs] })
 
                 bot.api.interactions(interaction.id, interaction.token).callback.post({
                     data: {
