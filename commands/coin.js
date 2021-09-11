@@ -26,10 +26,12 @@ module.exports = class Coin extends commands {
               .setColor("#EFEF42")
               .setTitle("Coin commands")
               .setDescription("Cette commande permet de gagner de l'argent à utiliser dans certaines commandes.")
-              .addField("Utilisation :", "`$coin info` : cette commande. \n `$coin get` : Toute les heures, fait gagner 250 coins. \n `$coin amount` : Vous donne le nombre de coin de quelqu'un.")
+              .addField("Utilisation :", "`$coin info` : Cette commande. \n `$coin get` : Toute les heures, fait gagner 250 coins. \n `$coin amount` : Vous donne le nombre de coin de quelqu'un.")
               .addField('\u200b', '\u200b')
-              .addField("Commandes compatibles :", "`$Baka` : $baka <user> buy ; outrepasse le cooldown \nCoût : 100 coins \n`$Meme` : $meme buy ; outrepasse le cooldown \nCoût : 100 coins \n`$Skip` : Permet de skip pour les non-Admin \nCoût : 200 coins \n`$AddfaitsDivers` : Permet d'ajouter un Faits Divers pour les non-Admin \nCoût : 1250 coins")
+              .addField("Commandes compatibles :", "`$Baka` : $baka <user> buy ; outrepasse le cooldown \nCoût : 100 coins \n`$Meme` : $meme buy ; outrepasse le cooldown \nCoût : 100 coins \n`$Skip` : Permet de skip pour les non-Admin \nCoût : 200 coins \n`$AddfaitsDivers` : Permet d'ajouter un Faits Divers pour les non-Admin \nCoût : 1250 coins \n`$TonBotestMalFoutu` : Permet de changer le message pour soit. \nCoût : 750 coins")
         message.channel.send(embed)
+        // message.channel.send({ embeds: [embed] });
+        // TODO : v13
     }
 
     static get (message, coins) {
@@ -62,11 +64,13 @@ module.exports = class Coin extends commands {
 
         if(!coins[cUser.id]) return message.reply("This user has no coin!");
 
-        const warnEmbed = new MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle('Coins')
             .setColor("#EFEF42")
             .addField("User", cUser)
             .addField("Number of Coins", coins[cUser.id].coins)
-        message.channel.send(warnEmbed);
+        message.channel.send(embed);
+        // message.channel.send({ embeds: [embed] });
+        // TODO : v13
     }
 }
