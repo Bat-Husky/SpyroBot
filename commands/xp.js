@@ -13,6 +13,11 @@ module.exports = {
 
         let allLevels = JSON.parse(fs.readFileSync("./JSON/Levels.json", "utf8"));
 
+        const Upsilon = member.guild.roles.cache.find(role => role.name === "Loup Upsilon");
+        const Delta = member.guild.roles.cache.find(role => role.name === "Loup Delta");
+        const Gamma = member.guild.roles.cache.find(role => role.name === "Loup Gamma");
+        const Kappa = member.guild.roles.cache.find(role => role.name === "Loup Kappa");
+
         if (!allLevels["User"][user.id]) {
             allLevels["User"][user.id] = {
                 id: user.id,
@@ -44,14 +49,16 @@ module.exports = {
             allLevels["User"][user.id]["xpLevel"] *= 1.17
 
             if (allLevels["User"][user.id]["level"] >= 8) {
-                const Delta = member.guild.roles.cache.find(role => role.name === "Loup Delta");
-                await message.guild.members.cache.get(User.id).roles.add(Delta.id);
-            } else if (allLevels["User"][user.id]["level"] >= 20) {
-                const Gamma = member.guild.roles.cache.find(role => role.name === "Loup Gamma");
-                await message.guild.members.cache.get(User.id).roles.add(Gamma.id);
-            } else if (allLevels["User"][user.id]["level"] >= 30) {
-                const Kappa = member.guild.roles.cache.find(role => role.name === "Loup Kappa");
-                await message.guild.members.cache.get(User.id).roles.add(Kappa.id);
+                await message.guild.members.cache.get(user.id).roles.remove(Upsilon.id);
+                await message.guild.members.cache.get(user.id).roles.add(Delta.id);
+            }
+            if (allLevels["User"][user.id]["level"] >= 20) {
+                await message.guild.members.cache.get(user.id).roles.remove(Delta.id);
+                await message.guild.members.cache.get(user.id).roles.add(Gamma.id);
+            }
+            if (allLevels["User"][user.id]["level"] >= 30) {
+                await message.guild.members.cache.get(user.id).roles.remove(Gamma.id);
+                await message.guild.members.cache.get(user.id).roles.add(Kappa.id);
             }
 
             message.channel.send(`Bravo ${user} ! \nTu es maintenat un loup niveau ${allLevels["User"][user.id]["level"]}`)
