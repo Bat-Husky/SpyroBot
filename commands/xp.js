@@ -13,10 +13,10 @@ module.exports = {
 
         let allLevels = JSON.parse(fs.readFileSync("./JSON/Levels.json", "utf8"));
 
-        const Upsilon = member.guild.roles.cache.find(role => role.name === "Loup Upsilon");
-        const Delta = member.guild.roles.cache.find(role => role.name === "Loup Delta");
-        const Gamma = member.guild.roles.cache.find(role => role.name === "Loup Gamma");
-        const Kappa = member.guild.roles.cache.find(role => role.name === "Loup Kappa");
+        const Upsilon = message.guild.roles.cache.find(role => role.name === "Loup Upsilon");
+        const Delta = message.guild.roles.cache.find(role => role.name === "Loup Delta");
+        const Gamma = message.guild.roles.cache.find(role => role.name === "Loup Gamma");
+        const Kappa = message.guild.roles.cache.find(role => role.name === "Loup Kappa");
 
         if (!allLevels["User"][user.id]) {
             allLevels["User"][user.id] = {
