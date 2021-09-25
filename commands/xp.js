@@ -26,6 +26,14 @@ module.exports = {
                 xpLevel: 100
             }
 
+            allLevels["List"].push(user.id.toString())
+
+            fs.writeFile("./JSON/Levels.json", JSON.stringify(allLevels), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+
             return
         }
 
