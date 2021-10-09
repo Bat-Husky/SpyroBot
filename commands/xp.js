@@ -54,7 +54,7 @@ module.exports = {
         if (allLevels["User"][user.id]["xp"] >= allLevels["User"][user.id]["xpLevel"]) {
             allLevels["User"][user.id]["level"] += 1
             allLevels["User"][user.id]["xp"] -= allLevels["User"][user.id]["xpLevel"]
-            allLevels["User"][user.id]["xpLevel"] *= 1.17
+            allLevels["User"][user.id]["xpLevel"] = Math.floor(allLevels["User"][user.id]["xpLevel"] * 1.15)
 
             if (allLevels["User"][user.id]["level"] >= 8) {
                 await message.guild.members.cache.get(user.id).roles.remove(Upsilon.id);
@@ -69,7 +69,7 @@ module.exports = {
                 await message.guild.members.cache.get(user.id).roles.add(Kappa.id);
             }
 
-            message.channel.send(`Bravo ${user} ! \nTu es maintenat un loup niveau ${allLevels["User"][user.id]["level"]}`)
+            message.channel.send(`Bravo ${user} ! \nTu es maintenant un loup niveau ${allLevels["User"][user.id]["level"]}`)
         }
 
         fs.writeFile("./JSON/Levels.json", JSON.stringify(allLevels), (err) => {
