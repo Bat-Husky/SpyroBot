@@ -10,7 +10,7 @@
   <img alt="GitHub" src="https://img.shields.io/github/license/Bat-Husky/SpyroBot?color=%231BB6F6&logo=Internet%20Archive&logoColor=%23FFFFFF">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Bat-Husky/SpyroBot?color=cyan&label=Last%20Commit&logo=Visual%20Studio%20Code&logoColor=blue">
   <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/Bat-Husky/SpyroBot?color=2AA198&label=Last%20Release&logo=JavaScript">
-  <img alt="GitHub commits since tagged version" src="https://img.shields.io/github/commits-since/Bat-Husky/SpyroBot/v1.5.1?color=%23C74143&label=Commits%20since%20v1.5.1&logo=DocuSign&logoColor=%23FFCC22">
+  <img alt="GitHub commits since tagged version" src="https://img.shields.io/github/commits-since/Bat-Husky/SpyroBot/v2.0?color=%23C74143&label=Commits%20since%20v2.0&logo=DocuSign&logoColor=%23FFCC22">
 </div>
 <br>
 
