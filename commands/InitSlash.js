@@ -25,7 +25,7 @@ module.exports = {
                         name: "user",
                         description: "the user you want to know the rank",
                         type: 6,
-                        required: false
+                        required: true
                     }
                 ]
             }
