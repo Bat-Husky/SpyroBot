@@ -236,15 +236,30 @@ module.exports = {
                     .setTitle("🔊 Vocal :")
                     .setDescription("`$Play` : $Play <link> \n`$Skip` : passe à la musique suivante. \n`$Queue` : donne la liste des chansons sur la queue. \n`$Volume` : $volume <number> \n`$Loop` : Répète les musiques de la queue. \n`$Leave` : quitte le channel. \n`$SetQueueChannel` : $SetQueueChannel <id or name>")
 
+                
+                var isSlash;
+                var isMP;
 
-                if (interaction.data.options && interaction.data.options[0].value == "true") {
+                
+                if (interaction.data.options && interaction.data.options[0]) {
+                    if (interaction.data.options[0].name == "slash") isSlash = (interaction.data.options[0].value === "true")
+                    else if (interaction.data.options[0].name == "mp") isMP = (interaction.data.options[0].value === "true")
+                }
+
+                if (interaction.data.options && interaction.data.options[1]) {
+                    if (interaction.data.options[1].name == "slash") isSlash = (interaction.data.options[1].value === "true")
+                    else if (interaction.data.options[1].name == "mp") isMP = (interaction.data.options[1].value === "true")
+                }
+                
+                
+                if (isSlash) {
 
                     const slashHelp = new MessageEmbed()
                             .setColor("#5465FF")
                             .setTitle("Slash Commands")
                             .setDescription("__**Commands :**__ \n`baka` \n`faitsdivers` \n`info` \n`help` \n`ping` \n`clear` \n`warn` \n`infractions`")
 
-                    if (interaction.data.options[1] && interaction.data.options[1].value == "true") {
+                    if (isMP) {
 
                         member.send(slashHelp)
                         // member.send({ embeds: [slashHelp] })
@@ -275,7 +290,7 @@ module.exports = {
 
                 }
 
-                if (interaction.data.options && interaction.data.options[1] && interaction.data.options[1].value == "true") {
+                if (isMP) {
 
                     member.send(top) && member.send(general) && member.send(useless) && member.send(moderation) && member.send(voice)
                     // member.send({ embeds: [top] }) && member.send({ embeds: [general] }) && member.send({ embeds: [useless] }) && member.send({ embeds: [moderation] }) && member.send({ embeds: [voice] })
