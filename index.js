@@ -71,6 +71,9 @@ bot.on('message', async message => {
   } else if (message.content.toString().toLowerCase().startsWith(`${prefix}loop`)) {
     loup(message, serverQueue);
     return;
+  } else if (message.content.toString().toLowerCase().startsWith(`${prefix}musicinfo`)) {
+    musicinfo(message, serverQueue);
+    return;
   } else if (message.content.toString().toLowerCase().startsWith(`${prefix}ping`)) {
     ping(message);
     return;
@@ -253,6 +256,23 @@ function loup(message, serverQueue) {
         .addField("Loop", '`Off`')
       message.channel.send(embed);
     }
+}
+
+function musicinfo(message, serverQueue) {
+    if (!serverQueue) return message.channel.send("There is no song!");
+    if (serverQueue.loop) loopValue = "On"
+    else loopValue = "Off"
+
+    const embed = new MessageEmbed()
+        .setColor("#0042FF")
+        .setTitle("Music Info")
+        .addFields(
+            {name: "Channel vocal :", value: `${serverQueue.voiceChannel}`},
+            {name: "Channel Queue :", value: `${serverQueue.textChannel}`},
+            {name: "Volume :", value: `${serverQueue.volume*100}%`},
+            {name: "Loop :", value: `${loopValue}`}
+        )
+    message.channel.send(embed)
 }
 
 function info(message) {
