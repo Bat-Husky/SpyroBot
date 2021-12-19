@@ -119,7 +119,7 @@ async function execute(message, serverQueue) {
       voiceChannel: voiceChannel,
       connection: null,
       songs: [],
-      volume: 5,
+      volume: 1,
       playing: true,
       loop: false
     };
@@ -163,7 +163,7 @@ function play(guild, song) {
       play(guild, serverQueue.songs[0]);
     })
     .on("error", error => console.error(error));
-  dispatcher.setVolume(1);
+  dispatcher.setVolume(serverQueue.volume);
   const embed = new MessageEmbed()
                     .setColor("#0042ff")
                     .addField("Now playing", `[${song.title}](${song.url})`)
@@ -215,6 +215,7 @@ function volume(message, serverQueue) {
     let msg = message.content.toString().toLowerCase();
     let vol = msg.split(' ')[1];
     serverQueue.connection.dispatcher.setVolume(vol);
+    serverQueue.volume = vol;
     const embed = new MessageEmbed()
           .setColor("#0042ff")
           .addField("Set volume to", `${vol * 100}%`)
