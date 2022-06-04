@@ -16,7 +16,7 @@ module.exports = class Help extends commands {
         const general = new MessageEmbed()
             .setColor("#5465FF")
             .setTitle("Général :")
-            .setDescription("`$info` : Donne des info sur le bot. \n`$Bots` : Donne des infos sur les bots. \n`$Rules` : Lis les règles ! \n`$Spyro` : $Spyro <code|github|history> ; Donne des infos \n`$Open[Pattern/Code/Info]` : Donne des infos sur OpenBot. \n`$Constitution` : Envoie le fichier de la constitution. \n`$Coin info` : Donne des info sur la commande $coin \n`$cmdStatus` permet de désactiver certaines commandes \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
+            .setDescription("`$info` : Donne des info sur le bot. \n`$Bots` : Donne des infos sur les bots. \n`$Rank` : Donne le niveau et le rang. \n`$Rules` : Lis les règles ! \n`$Spyro` : $Spyro <code|github|history> ; Donne des infos \n`$Open[Pattern/Code/Info]` : Donne des infos sur OpenBot. \n`$Constitution` : Envoie le fichier de la constitution. \n`$Coin info` : Donne des info sur la commande $coin \n`$cmdStatus` permet de désactiver certaines commandes \n`$Crash` : Fais crash le bot (Admin only) \n`$Ping` : Ping le bot (Admin only)")
 
         const useless = new MessageEmbed()
             .setColor("#5465FF")
@@ -36,16 +36,15 @@ module.exports = class Help extends commands {
         const slashHelp = new MessageEmbed()
             .setColor("#5465FF")
             .setTitle("Slash Commands")
-            .setDescription("__**Commands :**__ \n`info` \n`help` \n`ping` \n`baka` \n`faitsdivers` \n`warn` \n`infractions`")
+            .setDescription("__**Commands :**__ \n`info` \n`help` \n`bots` \n`ping` \n`baka` \n`faitsdivers` \n`warn` \n`infractions` \n`report` \n`clear` \n`rank`")
 
-        if (message.content.toString().toLowerCase().split(' ')[1] == "mp" || message.content.toString().toLowerCase().split(' ')[1] == "dm") return message.author.send(top) && message.author.send(general) && message.author.send(useless) && message.author.send(moderation) && message.author.send(voice) // message.author.send({ embeds: [top] }) && message.author.send({ embeds: [general] }) && message.author.send({ embeds: [useless] }) && message.author.send({ embeds: [moderation] }) && message.author.send({ embeds: [voice] })
+        if (message.content.toString().toLowerCase().split(' ')[1] == "mp" || message.content.toString().toLowerCase().split(' ')[1] == "dm") return message.author.send({ embeds: [top] }) && message.author.send({ embeds: [general] }) && message.author.send({ embeds: [useless] }) && message.author.send({ embeds: [moderation] }) && message.author.send({ embeds: [voice] })
         if (message.content.toString().toLowerCase().split(' ')[1] == "slash") {
-            if (message.content.toString().toLowerCase().split(' ')[2] == "mp" || message.content.toString().toLowerCase().split(' ')[2] == "dm") return message.author.send(slashHelp) // message.author.send({ embeds: [slashHelp] })
-            return message.channel.send(slashHelp)
-            // return message.channel;send({ embeds: [slashHelp] })
+            if (message.content.toString().toLowerCase().split(' ')[2] == "mp" || message.content.toString().toLowerCase().split(' ')[2] == "dm") return message.author.send({ embeds: [slashHelp] })
+            // return message.channel.send(slashHelp)
+            return message.channel.send({ embeds: [slashHelp] })
         }
-        return message.channel.send(top) && message.channel.send(general) && message.channel.send(useless) && message.channel.send(moderation) && message.channel.send(voice)
-        // return message.channel.send({ embeds: [top] }) && message.channel.send({ embeds: [general] }) && message.channel.send({ embeds: [useless] }) && message.channel.send({ embeds: [moderation] }) && message.channel.send({ embeds: [voice] })
-        // TODO : V13
+        // return message.channel.send(top) && message.channel.send(general) && message.channel.send(useless) && message.channel.send(moderation) && message.channel.send(voice)
+        return message.channel.send({ embeds: [top] }) && message.channel.send({ embeds: [general] }) && message.channel.send({ embeds: [useless] }) && message.channel.send({ embeds: [moderation] }) && message.channel.send({ embeds: [voice] })
     }
 }

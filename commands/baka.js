@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const bot = new Discord.Client()
+const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILD_INVITES, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] })
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const talkedRecently = new Set()
@@ -13,34 +13,34 @@ module.exports = class Baka extends commands {
     }
 
     static action (message) {
-        let status = JSON.parse(fs.readFileSync("../ReBot_test/JSON/CommandStatus.json", "utf8"));
+        let status = JSON.parse(fs.readFileSync("./JSON/CommandStatus.json", "utf8"));
         var buy = false;
 
         if (status["baka"][message.guild.id] == "off") return;
 
-        if (message.member.hasPermission("ADMINISTRATOR")) {
+        if (message.member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR)) {
             const user = message.mentions.users.first();
             if (user) {
-                const member = message.guild.member(user);
+                const member = message.guild.members.cache.get(user.id);
                 if (member) {
                     var nombreAleatoire = Math.round(Math.random()*8);
                     var reponse;
                     if(nombreAleatoire === 1) {
-                        message.channel.send(`${user} est une grosse merde`, {tts: true})
+                        message.channel.send({content: `${user} est une grosse merde`, tts: true})
                     } else if (nombreAleatoire === 2) {
-                        message.channel.send(`${user} va bouffer ses grands morts`, {tts: true})
+                        message.channel.send({content: `${user} va bouffer ses grands morts`, tts: true})
                     } else if (nombreAleatoire === 3) {
-                        message.channel.send(`${user} est juste un énorme ABRUTI`, {tts: true})
+                        message.channel.send({content: `${user} est juste un énorme ABRUTI`, tts: true})
                     } else if (nombreAleatoire === 4) {
-                        message.channel.send(`${user} est une PÉTASSE`, {tts: true})
+                        message.channel.send({content: `${user} est une PÉTASSE`, tts: true})
                     } else if (nombreAleatoire === 5) {
-                        message.channel.send(`${user} est un sale gueux`, {tts: true})
+                        message.channel.send({content: `${user} est un sale gueux`, tts: true})
                     } else if (nombreAleatoire === 6) {
-                        message.channel.send(`${user} a un balai dans l'cul`, {tts: true})
+                        message.channel.send({content: `${user} a un balai dans l'cul`,tts: true})
                     } else if (nombreAleatoire === 7) {
-                        message.channel.send(`${user} est une ordure`, {tts: true})
+                        message.channel.send({content: `${user} est une ordure`, tts: true})
                     } else {
-                        message.channel.send(`${user} est un sale gougnafier`, {tts: true})
+                        message.channel.send({content: `${user} est un sale gougnafier`, tts: true})
                     }
                 } else {
                     message.reply("Il n'est pas sur le serveur !");
@@ -66,7 +66,7 @@ module.exports = class Baka extends commands {
             }
             const user = message.mentions.users.first();
             if (user) {
-                const member = message.guild.member(user);
+                const member = message.guild.members.cache.get(user.id);
                 if (member) {
                     var nombreAleatoire = Math.round(Math.random()*8);
                     var reponse;
@@ -92,7 +92,7 @@ module.exports = class Baka extends commands {
                         setTimeout(() => {
                             talkedRecently.delete(message.author.id);
                         }, 60000);
-                    }   
+                    }
                 } else {
                     message.reply("Il n'est pas sur le serveur !");
                 }

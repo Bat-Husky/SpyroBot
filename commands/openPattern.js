@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const bot = new Discord.Client()
+const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILD_INVITES, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] })
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 
@@ -29,9 +29,8 @@ module.exports = class openPattern {
             .setColor("#53E2AB")
             .setDescription("Voici le pattern de programmation de commande pour OpenBot en TypeScript : \n\n\n```ts\nimport {\n    Command,\n    CommandMessage\n} from \"@typeit/discord\"\nimport { MessageEmbed } from \"discord.js\";\n\nexport abstract class Pattern {\n    @Command(\"nom de la commande\")\n    async Pattern(message: CommandMessage) {\n      // insérer code ici.\n    }\n}\n```")
             .setThumbnail("https://bat-husky.github.io/OpenBotus.png")
-        message.channel.send(embed)
-        // message.channel.send({ embeds: [embed] });
-        // TODO : v13
+        // message.channel.send(embed)
+        message.channel.send({ embeds: [embed] });
     }
 
     static info (message) {
@@ -43,6 +42,6 @@ module.exports = class openPattern {
             .setTitle("OpenBot")
             .setColor("#53E2AB")
             .setDescription("Voici un de exemple de ce à quoi ressemblerait une commande `echo` : \n\n\n```ts\nimport {\n    Command,\n    CommandMessage\n} from \"@typeit/discord\"\nimport { MessageEmbed } from \"discord.js\";\n\nexport abstract class Pattern {\n    @Command(\"echo\")\n    async echo(message: CommandMessage) {\n      let echo = message.content.toString().split(\" \");\n      echo.shift()\n      let echo2 = echo.join(' ')\n      message.reply(`${echo2}`)\n    }\n}\n```")
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] });
     }
 }

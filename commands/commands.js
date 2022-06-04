@@ -1,9 +1,15 @@
-const Discord = require('discord.js')
-const bot = new Discord.Client()
+const Discord = require('discord.js');
 
 module.exports = class commands {
 
-    static parse (message, prefix) {
+    /**
+     * 
+     * @constructor
+     * @param {Discord.message} message
+     * @param {String} prefix
+     * @returns {Boolean}
+     */
+    static parse(message, prefix) {
         if (this.match(message, prefix)) {
             this.action(message)
             return true
@@ -11,10 +17,10 @@ module.exports = class commands {
         return false
     }
 
-    static match (message) {
+    static match (_message, _prefix) {
         return false
     }
 
-    static action (message) {
+    static action (_message) {
     }
 }

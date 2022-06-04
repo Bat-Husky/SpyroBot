@@ -13,7 +13,7 @@ module.exports = class Report extends commands {
     static action (message) {
         let logsChannels = JSON.parse(fs.readFileSync("../ReBot_test/JSON/LogsChannels.json", "utf8"));
 
-        if (!logsChannels[message.guild.id] || !message.guild.channels.cache.find(ch => ch.name == logsChannels[message.guild.id]) || !message.guild.channels.cache.find(ch => ch.id == logsChannels[message.guild.id])) {
+        if (!logsChannels[message.guild.id] || !message.guild.channels.cache.find(ch => ch.name == logsChannels[message.guild.id]) && !message.guild.channels.cache.find(ch => ch.id == logsChannels[message.guild.id])) {
             return message.reply("Définnissez le channel des logs comme ceci : \n`$LogsChannel <id or name>`")
         }
 
@@ -35,8 +35,8 @@ module.exports = class Report extends commands {
         const embed = new MessageEmbed()
             .setTitle("Report")
             .addField("By : ", `${message.author}`)
-            .addField("Warned User : ", `${message.mentions.users.first()}`)
+            .addField("Report User : ", `${message.mentions.users.first()}`)
             .addField("Reason : ", `${reason}`)
-        reportChannel.send(embed)
+        reportChannel.send({ embeds: [embed] });
     }
 }

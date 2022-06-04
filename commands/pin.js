@@ -1,8 +1,13 @@
 module.exports = {
+    /**
+     * 
+     * @param {Discord} Discord 
+     * @param {Discord.Client} bot 
+     */
     async execute(Discord, bot) {
         //const guild = bot.guilds.cache.get('621427447879172096')
 
-        const pinEmoji = '📌'
+        const pinEmoji = '📍' //'📌'
 
         bot.on('messageReactionAdd', async (reaction, user) => {
             if (reaction.message.partial) await reaction.message.fetch();
@@ -12,11 +17,11 @@ module.exports = {
 
             if (reaction.emoji.name !== pinEmoji) return;
 
-            let message = reaction.message;
+            message = reaction.message;
 
             reaction.remove();
 
-            if (!reaction.message.guild.members.cache.get(user.id).hasPermission("MANAGE_CHANNELS")) {
+            if (!reaction.message.guild.members.cache.get(user.id).permissions.has(Discord.Permissions.FLAGS.MANAGE_CHANNELS)) {
                 return message.reply("Vous n'avez pas les permissions").then((sent) => {
                     setTimeout(function () {
                         sent.delete();

@@ -3,9 +3,9 @@ const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
 
-// TODO : v13
 
-module.exports = class QueueChannel extends commands {
+
+module.exports = class cmdStatus extends commands {
 
     static match (message, prefix) {
         return message.content.toString().toLowerCase().startsWith(`${prefix}cmdstatus`)
@@ -13,7 +13,7 @@ module.exports = class QueueChannel extends commands {
 
 
     static action (message) {
-        if (!message.member.permissions.has("ADMINISTRATOR")) return message.reply("You can't use that command!");
+        if (!message.member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR)) return message.reply("You can't use that command!");
 
         let status = JSON.parse(fs.readFileSync("../ReBot_test/JSON/CommandStatus.json", "utf8"));
 
@@ -42,8 +42,8 @@ module.exports = class QueueChannel extends commands {
         const embed = new MessageEmbed()
             .setTitle("Baka command status :")
             .setDescription(`\`${choice}\``)
-        return message.channel.send(embed);
-        // return message.channel.send({ embeds: [embed] });
+        // return message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 
     static malfoutu (message, status, choice) {
@@ -58,8 +58,8 @@ module.exports = class QueueChannel extends commands {
         const embed = new MessageEmbed()
             .setTitle("Tonbotestmalfoutu command status :")
             .setDescription(`\`${choice}\``)
-        return message.channel.send(embed);
-        // return message.channel.send({ embeds: [embed] });
+        // return message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 
     static diago (message, status, choice) {
@@ -74,7 +74,7 @@ module.exports = class QueueChannel extends commands {
         const embed = new MessageEmbed()
             .setTitle("Diagonale command status :")
             .setDescription(`\`${choice}\``)
-        return message.channel.send(embed);
-        // return message.channel.send({ embeds: [embed] });
+        // return message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 }

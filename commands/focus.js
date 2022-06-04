@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const bot = new Discord.Client()
+const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILD_INVITES, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] })
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 

@@ -4,7 +4,7 @@ const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
 
 
-module.exports = class FaitsDivers extends commands {
+module.exports = class Rules extends commands {
 
     static match (message, prefix) {
         return message.content.toString().toLowerCase().startsWith(`${prefix}rules`)

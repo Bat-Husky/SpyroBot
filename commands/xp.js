@@ -4,6 +4,7 @@ const fs = require('fs');
 
 module.exports = {
     async execute(user, message, prefix, bot) {
+        if (message.guild.id != 621427447879172096n) return;
         if (talkedRecently.has(message.author.id)) return;
 
         talkedRecently.add(message.author.id);
@@ -54,7 +55,7 @@ module.exports = {
         if (allLevels["User"][user.id]["xp"] >= allLevels["User"][user.id]["xpLevel"]) {
             allLevels["User"][user.id]["level"] += 1
             allLevels["User"][user.id]["xp"] -= allLevels["User"][user.id]["xpLevel"]
-            allLevels["User"][user.id]["xpLevel"] = Math.floor(allLevels["User"][user.id]["xpLevel"] * 1.15)
+            allLevels["User"][user.id]["xpLevel"] = Math.floor(allLevels["User"][user.id]["xpLevel"] * 1.17)
 
             if (allLevels["User"][user.id]["level"] >= 8) {
                 await message.guild.members.cache.get(user.id).roles.remove(Upsilon.id);

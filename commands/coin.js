@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const bot = new Discord.Client()
+const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILD_INVITES, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] })
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
@@ -29,9 +29,8 @@ module.exports = class Coin extends commands {
               .addField("Utilisation :", "`$coin info` : Cette commande. \n `$coin get` : Toute les heures, fait gagner 250 coins. \n `$coin amount` : Vous donne le nombre de coin de quelqu'un.")
               .addField('\u200b', '\u200b')
               .addField("Commandes compatibles :", "`$Baka` : $baka <user> buy ; outrepasse le cooldown \nCoût : 100 coins \n`$Meme` : $meme buy ; outrepasse le cooldown \nCoût : 100 coins \n`$Skip` : Permet de skip pour les non-Admin \nCoût : 200 coins \n`$AddfaitsDivers` : Permet d'ajouter un Faits Divers pour les non-Admin \nCoût : 1250 coins \n`$TonBotestMalFoutu` : Permet de changer le message pour soit. \nCoût : 750 coins")
-        message.channel.send(embed)
-        // message.channel.send({ embeds: [embed] });
-        // TODO : v13
+        // message.channel.send(embed)
+        message.channel.send({ embeds: [embed] });
     }
 
     static get (message, coins) {
@@ -67,10 +66,9 @@ module.exports = class Coin extends commands {
         const embed = new MessageEmbed()
             .setTitle('Coins')
             .setColor("#EFEF42")
-            .addField("User", cUser)
-            .addField("Number of Coins", coins[cUser.id].coins)
-        message.channel.send(embed);
-        // message.channel.send({ embeds: [embed] });
-        // TODO : v13
+            .addField("User", cUser.toString())
+            .addField("Number of Coins", coins[cUser.id].coins.toString())
+        // message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 }

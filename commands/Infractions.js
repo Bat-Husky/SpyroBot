@@ -1,10 +1,7 @@
-const Discord = require('discord.js')
-const bot = new Discord.Client()
 const commands = require('./commands');
 const { Client, MessageEmbed } = require('discord.js');
 const fs = require('fs');
-//const ms = require("ms");
-//let warns = JSON.parse(fs.readFileSync("../ReBot_test/Warn/Warning.json", "utf8"));
+const Discord = require('discord.js');
 
 
 
@@ -15,23 +12,24 @@ module.exports = class Infractions extends commands {
     }
 
     static action (message) {
-      let warns = JSON.parse(fs.readFileSync("./JSON/Warning.json", "utf8"));
+        let warns = JSON.parse(fs.readFileSync("../ReBot_test/JSON/Warning.json", "utf8"));
 
-      if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("Vous n'avez pas les permissions nécessaires !");
-      if(!message.mentions.users.first()) return message.reply("Vous n'avez mentionné personne !")
-      let wUser = message.guild.member(message.mentions.users.first()) || message.mentions.users.first().id;
-      if(!wUser) return message.reply("Je ne le trouve pas.");
+        if(!message.member.permissions.has(Discord.Permissions.FLAGS.MODERATE_MEMBERS)) return message.reply("You can't use that command!");
+        var wUser;
+        if (message.mentions.members.first()) wUser = message.guild.members.cache.get(message.mentions.members.first().id) // || message.mentions.users.first();
+        else return message.reply("Can't find user!");
+        if(!wUser) return message.reply("Can't find user!");
 
-      var warned = message.mentions.users.first();
+        var warned = message.mentions.users.first();
 
-      if(!warns[wUser.id]) return message.reply("Ce membre n'a pas de warn");
+        if(!warns[wUser.id]) return message.reply("This user has no warn!");
 
-      const warnEmbed = new MessageEmbed()
-          .setTitle('Infractions')
-          .setColor("#0042ff")
-          .addField("User", warned)
-          .addField("Number of Warnings", warns[wUser.id].warns)
-      message.channel.send(warnEmbed);
-
+        const warnEmbed = new MessageEmbed()
+            .setTitle('Infractions')
+            .setColor("#0042ff")
+            .addField("User", warned.toString())
+            .addField("Number of Warnings", warns[wUser.id].warns.toString())
+        //   message.channel.send(warnEmbed);
+        message.channel.send({ embeds: [warnEmbed] });
     }
 }

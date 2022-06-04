@@ -11,7 +11,7 @@ module.exports = class AddFaitsDivers extends commands {
     }
 
     static action (message) {
-        if(!message.member.hasPermission("ADMINISTRATOR")) {
+        if(!message.member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR)) {
             let coins = JSON.parse(fs.readFileSync("./JSON/coin.json", "utf8"));
             if (coins[message.author.id].coins < 1250) return message.reply(`You don't have enough coins to add a \`Faits Divers\`! \n\`${coins[message.author.id].coins}\` < \`1250\``)
 
@@ -41,6 +41,6 @@ module.exports = class AddFaitsDivers extends commands {
             }
         });
 
-        return message.channel.send(`Nouveau faits divers ajouté avec succès ! \n**${faitsDivers["faitsdivers"][faitsDivers["nombre"] - 1]}**`)
+        message.channel.send(`Nouveau faits divers ajouté avec succès ! \n**${faitsDivers["faitsdivers"][faitsDivers["nombre"] - 1]}**`)
     }
 }

@@ -28,11 +28,11 @@ module.exports = class Run extends commands {
 
     static info (message) {
         const embed = new MessageEmbed()
-              .setColor("#4CD477")
-              .setTitle("Run commands")
-              .setDescription("Cette commande permet de créer des courses pour vous départager.")
-              .addField("Utilisation :", "`$run info` : cette commande. \n`$run list` : Donne la liste des runs ouvertes. \n `$run create` : $run create <name> \n `$run start` : $run start <name> ; creator only \n `$run delete` : $run delete <name> ; creator only \n `$run join` : $run join <name>")
-        message.channel.send(embed)
+            .setColor("#4CD477")
+            .setTitle("Run commands")
+            .setDescription("Cette commande permet de créer des courses pour vous départager.")
+            .addField("Utilisation :", "`$run info` : cette commande. \n`$run list` : Donne la liste des runs ouvertes. \n `$run create` : $run create <name> \n `$run start` : $run start <name> ; creator only \n `$run delete` : $run delete <name> ; creator only \n `$run join` : $run join <name>")
+        message.channel.send({ embeds: [embed] });
     }
 
     static list (message) {

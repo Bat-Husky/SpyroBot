@@ -20,7 +20,8 @@ module.exports = class Rank extends commands {
         }
 
         if (!allLevels["User"][User.id]) {
-            return message.channel.send("Cette personne n'a pas de niveau.")
+            message.channel.send("Cette personne n'a pas de niveau.")
+            return
         }
 
         var rank = 1;
@@ -49,6 +50,6 @@ module.exports = class Rank extends commands {
             .addField("Level :", `${allLevels["User"][User.id]["level"]}`)
             .addField("XP :", `${allLevels["User"][User.id]["xp"]} / ${allLevels["User"][User.id]["xpLevel"]}`)
             .setThumbnail(User.avatarURL("png"))
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] });
     }
 }

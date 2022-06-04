@@ -1,7 +1,7 @@
 module.exports = {
     async execute(Discord, bot) {
         const guild = bot.guilds.cache.get('621427447879172096')
-        const channel = '833120128035192912'  //'683395478913679580';
+        const channel = '683395478913679580';  // '833120128035192912'
         const Phasmophobia = guild.roles.cache.find(role => role.name === "Phasmophobia");
         const coding = guild.roles.cache.find(role => role.name === "Loup Codeur");
         const jeux = guild.roles.cache.find(role => role.name === "Jeux");
@@ -10,10 +10,12 @@ module.exports = {
         const nintendo = guild.roles.cache.find(role => role.name === "Nintendo");
         const bedrockm = guild.roles.cache.find(role => role.name === "Minecraft Bedrock");
         const javam = guild.roles.cache.find(role => role.name === "Minecraft Java");
+        const fisher = guild.roles.cache.find(role => role.name === "Maître Pêcheur");
 
         const phasmophobiaEmoji = '👻'
         const codingemoji = '💻'
         const debatemoji = '🎤'
+        const fishemoji = '🐟'
         const gameemoji = guild.emojis.cache.find(emoji => emoji.name == 'Saitama')
         const Furyemoji = guild.emojis.cache.find(emoji => emoji.name == 'furry')
         const Fursuitemoji = guild.emojis.cache.find(emoji => emoji.name == 'Ahouuuuu')
@@ -55,6 +57,9 @@ module.exports = {
                 if (reaction.emoji.name === javaemoji) {
                     await reaction.message.guild.members.cache.get(user.id).roles.add(javam.id);
                 }
+                if (reaction.emoji.name === fishemoji) {
+                    await reaction.message.guild.members.cache.get(user.id).roles.add(fisher.id);
+                }
             } else {
                 return;
             }
@@ -95,6 +100,9 @@ module.exports = {
                 }
                 if (reaction.emoji.name === javaemoji) {
                     await reaction.message.guild.members.cache.get(user.id).roles.remove(javam.id);
+                }
+                if (reaction.emoji.name === fishemoji) {
+                    await reaction.message.guild.members.cache.get(user.id).roles.remove(fisher.id);
                 }
             } else {
                 return;
