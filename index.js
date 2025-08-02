@@ -25,12 +25,13 @@ const Pin = require('./commands/pin');
 const ReactRules = require('./commands/reactRules');
 const ReactionRules = require('./commands/ReactionRules');
 const xp = require('./commands/xp');
+const botinfo = require('./commands/botinfo');
 
 
 const { prefix, token } = require('./JSON/config.json');
 const queue = new Map();
 
-
+const VoiceCommandsList = ['play', 'skip', 'leave', 'queue', 'loop', 'clearqueue', 'volume', 'pause', 'resume', 'shuffle'];
 // Create a new collection to store the slash commands
 bot.SlashCommands = new Collection();
 
@@ -53,6 +54,7 @@ for (const folder of SlashCommandFolders) {
         }
     }
 }
+
 
 // Create a new array to store the commands
 bot.commands = new Array();
@@ -129,7 +131,11 @@ bot.on(Events.InteractionCreate, async interaction => {
 	}
 
 	try {
-		await command.execute(interaction);
+        if (VoiceCommandsList.includes(interaction.commandName)) {
+            await command.execute(interaction, queue, bot);
+        } else {
+			await command.execute(interaction);
+		}
 	} catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
@@ -162,7 +168,7 @@ bot.on('messageCreate', async message => {
             command.action(message, queue, bot);
         }
     }
-    commandUsed ||= SpyroBot.parse(message, prefix, bot) || Ping.parse(message, prefix, bot);
+    commandUsed ||= SpyroBot.parse(message, prefix, bot) || Ping.parse(message, prefix, bot) || botinfo.parse(message, prefix, bot);
 
     if (commandUsed == false && message.guild.id == 621427447879172096n) {
         xp.execute(message.author, message, prefix, bot)
