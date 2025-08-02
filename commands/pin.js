@@ -21,7 +21,7 @@ module.exports = {
 
             reaction.remove();
 
-            if (!reaction.message.guild.members.cache.get(user.id).permissions.has(Discord.Permissions.FLAGS.MANAGE_CHANNELS)) {
+            if (!reaction.message.guild.members.cache.get(user.id).permissions.has(Discord.PermissionFlagsBits.ManageChannels)) {
                 return message.reply("Vous n'avez pas les permissions").then((sent) => {
                     setTimeout(function () {
                         sent.delete();

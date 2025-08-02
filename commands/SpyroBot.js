@@ -1,9 +1,9 @@
 const Discord = require('discord.js')
-const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILD_INVITES, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] })
+// const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILD_INVITES, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] })
 const commands = require('./commands');
-const { Client, MessageEmbed } = require('discord.js');
-const djsImg = new Discord.MessageAttachment('./Img/discord-js.png')
-const ppImg = new Discord.MessageAttachment('./Img/spyrobot_v1.png')
+const { Client, EmbedBuilder } = require('discord.js');
+const djsImg = new Discord.AttachmentBuilder('./Img/discord-js.png', { name: 'discord-js.png' })
+const ppImg = new Discord.AttachmentBuilder('./Img/spyrobot_v1.png', { name: 'spyrobot_v1.png' })
 
 module.exports = class SpyroBot {
 
@@ -26,19 +26,21 @@ module.exports = class SpyroBot {
 
         if (!message.content.toString().toLowerCase().startsWith(`${prefix}spyrobot`)) return;
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
               .setColor("#0042ff")
               .setTitle("SpyroBot")
               .setURL("https://docs.google.com/document/d/1uSBdN_1_jUk0arHGbWB0kMjv6YJGQTgoLKO2QhjjhK8/edit?usp=sharing")
               .setDescription("Le Grand Bot SpyroBot")
               .setThumbnail(bot.user.avatarURL("png"))
-              .addField("Créateur :", "[Bat Husky](https://discord.gg/kcb3jke)")
-              .addField('\u200b', '\u200b')
-              .addFields(
+              .addFields([
+                { name: "Créateur :", value: "[Bat Husky](https://discord.gg/kcb3jke)", inline: false },
+                { name: '\u200b', value: '\u200b', inline: false }
+              ])
+              .addFields([
                 { name: 'Langage :', value: 'javascript', inline: true },
                 { name: 'Librairie :', value: 'discord.js', inline: true },
                 { name: 'Préfix :', value: '`$`', inline: true }
-              )
+              ])
               .setImage('attachment://discord-js.png')
         // message.channel.send(embed);
         message.channel.send({ embeds: [embed], files: [djsImg] });

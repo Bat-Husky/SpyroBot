@@ -5,8 +5,6 @@ module.exports = {
         const Phasmophobia = guild.roles.cache.find(role => role.name === "Phasmophobia");
         const coding = guild.roles.cache.find(role => role.name === "Loup Codeur");
         const jeux = guild.roles.cache.find(role => role.name === "Jeux");
-        const furry = guild.roles.cache.find(role => role.name === "Furry");
-        const fursuit = guild.roles.cache.find(role => role.name === "Fursuiter");
         const nintendo = guild.roles.cache.find(role => role.name === "Nintendo");
         const bedrockm = guild.roles.cache.find(role => role.name === "Minecraft Bedrock");
         const javam = guild.roles.cache.find(role => role.name === "Minecraft Java");
@@ -17,8 +15,6 @@ module.exports = {
         const debatemoji = '🎤'
         const fishemoji = '🐟'
         const gameemoji = guild.emojis.cache.find(emoji => emoji.name == 'Saitama')
-        const Furyemoji = guild.emojis.cache.find(emoji => emoji.name == 'furry')
-        const Fursuitemoji = guild.emojis.cache.find(emoji => emoji.name == 'Ahouuuuu')
         const Ninemoji = guild.emojis.cache.find(emoji => emoji.name == 'nintendo')
         const bedrockemoji = guild.emojis.cache.find(emoji => emoji.name == 'bedrock')
         const javaemoji = guild.emojis.cache.find(emoji => emoji.name == 'minecraft')
@@ -41,12 +37,6 @@ module.exports = {
                 }
                 if (reaction.emoji.name === gameemoji) {
                     await reaction.message.guild.members.cache.get(user.id).roles.add(jeux.id);
-                }
-                if (reaction.emoji.name === Furyemoji) {
-                    await reaction.message.guild.members.cache.get(user.id).roles.add(furry.id);
-                }
-                if (reaction.emoji.name === Fursuitemoji) {
-                    await reaction.message.guild.members.cache.get(user.id).roles.add(fursuit.id);
                 }
                 if (reaction.emoji.name === Ninemoji) {
                     await reaction.message.guild.members.cache.get(user.id).roles.add(nintendo.id);
@@ -85,12 +75,6 @@ module.exports = {
                 }
                 if (reaction.emoji.name === gameemoji) {
                     await reaction.message.guild.members.cache.get(user.id).roles.remove(jeux.id);
-                }
-                if (reaction.emoji.name === Furyemoji) {
-                    await reaction.message.guild.members.cache.get(user.id).roles.remove(furry.id);
-                }
-                if (reaction.emoji.name === Fursuitemoji) {
-                    await reaction.message.guild.members.cache.get(user.id).roles.remove(fursuit.id);
                 }
                 if (reaction.emoji.name === Ninemoji) {
                     await reaction.message.guild.members.cache.get(user.id).roles.remove(nintendo.id);
