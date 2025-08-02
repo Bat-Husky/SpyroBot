@@ -9,8 +9,6 @@ module.exports = {
         const debatemoji = '🎤'
         const fishemoji = '🐟'
         const gameemoji = message.guild.emojis.cache.find(emoji => emoji.name == 'Saitama')
-        const Furyemoji = message.guild.emojis.cache.find(emoji => emoji.name == 'furry')
-        const Fursuitemoji = message.guild.emojis.cache.find(emoji => emoji.name == 'Ahouuuuu')
         const Ninemoji = message.guild.emojis.cache.find(emoji => emoji.name == 'nintendo')
         const bedrockemoji = message.guild.emojis.cache.find(emoji => emoji.name == 'bedrock')
         const javaemoji = message.guild.emojis.cache.find(emoji => emoji.name == 'minecraft')
@@ -24,8 +22,6 @@ module.exports = {
                 + `Débats : ${debatemoji}\n`
                 + `Jeux : ${gameemoji}\n`
                 + `Fish BOYIII : ${fishemoji}\n`
-                + `Furry : ${Furyemoji}\n`
-                + `Fursuiter : ${Fursuitemoji}\n`
                 + `Nintendo : ${Ninemoji}\n`
                 + `Minecraft Bedrock : ${bedrockemoji}\n`
                 + `Minecraft Java : ${javaemoji}\n`
@@ -33,17 +29,17 @@ module.exports = {
 
         // let messageEmbed = await message.channel.send(embed);
         let messageEmbed = await message.channel.send({ embeds: [embed] });
-
+        // message.channel.messages.fetch('833383415528554496').then(message => message.edit({ embeds: [embed] }));
+        
         messageEmbed.react(phasmophobiaEmoji);
         messageEmbed.react(codingemoji);
         messageEmbed.react(debatemoji);
         messageEmbed.react(gameemoji);
-        messageEmbed.react(fishemoji)
-        messageEmbed.react(Furyemoji);
-        messageEmbed.react(Fursuitemoji);
+        messageEmbed.react(fishemoji);
         messageEmbed.react(Ninemoji);
         messageEmbed.react(bedrockemoji);
         messageEmbed.react(javaemoji);
+        
     }
 
 }

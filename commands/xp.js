@@ -12,6 +12,7 @@ module.exports = {
             talkedRecently.delete(message.author.id);
         }, 60000);
 
+        // let allLevels = JSON.parse(fs.readFileSync("/home/pi/SpyroBot_new/JSON/Levels.json", "utf8"));
         let allLevels = JSON.parse(fs.readFileSync("./JSON/Levels.json", "utf8"));
 
         const Upsilon = message.guild.roles.cache.find(role => role.name === "Loup Upsilon");

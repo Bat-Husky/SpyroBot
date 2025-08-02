@@ -2,7 +2,7 @@ module.exports = {
     async execute(Discord, bot) {
         const guild = bot.guilds.cache.get('621427447879172096')
         const channel = '621429833183789106'
-        const Omega = guild.roles.cache.find(role => role.name === "Loup Omega");
+        const Lambda = guild.roles.cache.find(role => role.name === "Loup Lambda");
 
         const emoji = '🛑'
 
@@ -14,7 +14,7 @@ module.exports = {
 
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name === emoji) {
-                    await reaction.message.guild.members.cache.get(user.id).roles.remove(Omega.id);
+                    await reaction.message.guild.members.cache.get(user.id).roles.remove(Lambda.id);
                 }
             } else {
                 return;
@@ -31,7 +31,7 @@ module.exports = {
 
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name === emoji) {
-                    await reaction.message.guild.members.cache.get(user.id).roles.add(Omega.id);
+                    await reaction.message.guild.members.cache.get(user.id).roles.add(Lambda.id);
                 }
             } else {
                 return;
