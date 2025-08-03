@@ -31,7 +31,7 @@ const botinfo = require('./commands/botinfo');
 const { prefix, token } = require('./JSON/config.json');
 const queue = new Map();
 
-const VoiceCommandsList = ['play', 'skip', 'leave', 'queue', 'loop', 'clearqueue', 'volume', 'pause', 'resume', 'shuffle'];
+const VoiceCommandsList = ['play', 'skip', 'leave', 'queue', 'loop', 'clearqueue', 'volume', 'pause', 'resume', 'shuffle', 'addplaylist'];
 // Create a new collection to store the slash commands
 bot.SlashCommands = new Collection();
 
@@ -40,7 +40,7 @@ const SlashCommandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of SlashCommandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
-    if (fs.lstatSync(commandsPath).isDirectory()) {
+    if (fs.lstatSync(commandsPath).isDirectory() && folder != 'buttons') {
         const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
         for (const file of commandFiles) {
             const filePath = path.join(commandsPath, file);
@@ -53,6 +53,17 @@ for (const folder of SlashCommandFolders) {
             }
         }
     }
+}
+
+// Create a new array to store the button
+bot.buttons = new Collection();
+
+const bfoldersPath = path.join(__dirname, 'interactions', 'buttons');
+const buttonFiles = fs.readdirSync(bfoldersPath).filter(file => file.endsWith('.js'));
+for (const file of buttonFiles) {
+    const filePath = path.join(bfoldersPath, file);
+    const command = require(filePath);
+    bot.buttons.set(command.name, command);
 }
 
 
@@ -99,7 +110,7 @@ bot.once(Events.ClientReady, readyClient => {
 
 
 
-bot.on("guildCreate", guild => {
+bot.on(Events.GuildCreate, guild => {
     const channels = guild.channels.cache.find(channel => channel.type == "GUILD_NEWS") || guild.channels.cache.find(channel => channel.type == "GUILD_TEXT");
 
     const embed = new EmbedBuilder()
@@ -121,34 +132,47 @@ bot.on("guildCreate", guild => {
 
 
 bot.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
+	if (interaction.isChatInputCommand()) {
 
-	const command = interaction.client.SlashCommands.get(interaction.commandName);
+        const command = interaction.client.SlashCommands.get(interaction.commandName);
 
-	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
-		return;
-	}
+        if (!command) {
+            console.error(`No command matching ${interaction.commandName} was found.`);
+            return;
+        }
 
-	try {
-        if (VoiceCommandsList.includes(interaction.commandName)) {
-            await command.execute(interaction, queue, bot);
-        } else {
-			await command.execute(interaction);
-		}
-	} catch (error) {
-		console.error(error);
-		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ content: 'There was an error while executing this command!', flags: MessageFlags.Ephemeral });
-		} else {
-			await interaction.reply({ content: 'There was an error while executing this command!', flags: MessageFlags.Ephemeral });
-		}
-	}
+        try {
+            if (VoiceCommandsList.includes(interaction.commandName)) {
+                await command.execute(interaction, queue, bot);
+            } else {
+                await command.execute(interaction);
+            }
+        } catch (error) {
+            console.error(error);
+            if (interaction.replied || interaction.deferred) {
+                await interaction.followUp({ content: 'There was an error while executing this command!', flags: MessageFlags.Ephemeral });
+            } else {
+                await interaction.reply({ content: 'There was an error while executing this command!', flags: MessageFlags.Ephemeral });
+            }
+        }
+    } else if (interaction.isButton()) {
+        const button = interaction.client.buttons.get(interaction.customId);
+
+        if (!button) {
+            console.error(`No button matching ${interaction.customId} was found.`);
+            return;
+        }
+        try {
+            await button.execute(interaction, queue, bot);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 });
 
 
 
-bot.on('messageCreate', async message => {
+bot.on(Events.MessageCreate, async message => {
     if (!message.guild) return;
     if (message.guild.id == 621427447879172096n && message.channel.id == 839864195314221089n) return xp.execute(message.author, message, prefix, bot);
     if (message.author.bot) return;
