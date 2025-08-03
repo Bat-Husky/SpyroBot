@@ -1,8 +1,11 @@
-const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, inlineCode } = require('discord.js');
 const ytdl = require('ytdl-core')
 const Voice = require('@discordjs/voice')
 const youtubedl = require('youtube-dl-exec')
+const fetch = require('node-fetch').default;
 const fs = require('fs');
+
+const { YTAPIKey } = require('../../JSON/config.json');
 
 
 const vdButton = new ButtonBuilder()
@@ -50,13 +53,34 @@ function shuffle(array) {
 }
 
 
+function validURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
+
+
+async function getURL(query) {
+  const url = `https://www.googleapis.com/youtube/v3/search?key=${YTAPIKey}&type=video&part=snippet&q=${query}`;
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return data.items[0].id;
+}
+
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('play')
 		.setDescription('Joue une chanson')
         .addStringOption(option =>
-            option.setName('url')
-                .setDescription('L\'URL de la chanson à jouer')
+            option.setName('query')
+                .setDescription('La requête de recherche pour la chanson à jouer')
                 .setRequired(true)
         ),
 	async execute(interaction, queue, bot) {
@@ -94,9 +118,12 @@ module.exports = {
                     
                 const embed = new EmbedBuilder()
                     .setColor("#0042ff")
+                    .setAuthor({ name: "Table de lecture", iconURL: song.member.user.displayAvatarURL() })
+                    .setDescription(`[\`${song.title}\`](${song.url})`)
                     .addFields([
-                        { name: "Now playing", value: `[${song.title}](${song.url})` },
-                        { name: "From", value: `${song.author}` }
+                        { name: "De", value: `${song.member}`, inline: true },
+                        { name: "Durée", value: inlineCode(`${song.duration}`), inline: true },
+                        { name: "Auteur", value: inlineCode(`${song.author}`), inline: true }
                     ])
                 if (!serverQueue.msg) {
                     serverQueue.msg = await guild.channels.cache.get(serverQueue.textChannel.id.toString()).send({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] });
@@ -104,10 +131,21 @@ module.exports = {
                     serverQueue.msg.edit({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] }).catch(err => console.error(err));
                 }                
             }
+
     
             const serverQueue = queue.get(interaction.guildId);
 
-            const url = interaction.options.getString('url');
+            const query = interaction.options.getString('query');
+
+            let url = query;
+            if (!validURL(query)) {
+                let queryId = await getURL(query);
+                if (queryId.kind != 'youtube#video') {
+                    return interaction.reply("Aucun résultat trouvé.");
+                }
+                url = `https://www.youtube.com/watch?v=${queryId.videoId}`;
+            }
+
             const voiceChannel = interaction.member.voice.channel;
             if (!voiceChannel)
                 return interaction.reply(
@@ -118,7 +156,9 @@ module.exports = {
             const song = {
                     title: songInfo.videoDetails.title,
                     url: songInfo.videoDetails.video_url,
-                    author: interaction.member,
+                    member: interaction.member,
+                    duration: songInfo.videoDetails.lengthSeconds ? `${Math.floor(songInfo.videoDetails.lengthSeconds / 60)}m ${songInfo.videoDetails.lengthSeconds % 60}s` : "Unknown",
+                    author: songInfo.videoDetails.author ? songInfo.videoDetails.author.name : "Unknown"
             };
         
             if (!serverQueue) {
@@ -161,7 +201,7 @@ module.exports = {
                     .setColor("#0042ff")
                     .addFields([
                         { name: "Now playing", value: `[${queueContruct.songs[0].title}](${queueContruct.songs[0].url})` },
-                        { name: "From", value: `${queueContruct.songs[0].author}` }
+                        { name: "From", value: `${queueContruct.songs[0].member}` }
                     ])
                     
                     await interaction.reply({ embeds: [embed] });
@@ -177,7 +217,7 @@ module.exports = {
                     .setColor("#0042ff")
                     .addFields([
                         { name: "Added to the queue", value: `[${song.title}](${song.url})` },
-                        { name: "From", value: `${song.author}` }
+                        { name: "From", value: `${song.member}` }
                     ])
                 
                 interaction.reply({ embeds: [embed] });

@@ -67,7 +67,9 @@ module.exports = {
                 const song = {
                     title: songInfo.videoDetails.title,
                     url: songInfo.videoDetails.video_url,
-                    author: interaction.member,
+                    member: interaction.member,
+                    duration: songInfo.videoDetails.lengthSeconds ? `${Math.floor(songInfo.videoDetails.lengthSeconds / 60)}m ${songInfo.videoDetails.lengthSeconds % 60}s` : "Unknown",
+                    author: songInfo.videoDetails.author ? songInfo.videoDetails.author.name : "Unknown"
                 };
                 serverQueue.songs.push(song);
             }
