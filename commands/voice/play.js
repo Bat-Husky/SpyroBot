@@ -1,4 +1,4 @@
-const { Client, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
+const { Client, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, inlineCode } = require('discord.js');
 const ytdl = require('ytdl-core')
 const Voice = require('@discordjs/voice')
 const youtubedl = require('youtube-dl-exec')
@@ -86,16 +86,19 @@ module.exports =  {
                 
             const embed = new EmbedBuilder()
                 .setColor("#0042ff")
+                .setAuthor({ name: "Table de lecture", iconURL: song.member.user.displayAvatarURL() })
+                .setDescription(`[\`${song.title}\`](${song.url})`)
                 .addFields([
-                    { name: "Now playing", value: `[${song.title}](${song.url})` },
-                    { name: "From", value: `${song.author}` }
+                    { name: "De", value: `${song.member}`, inline: true },
+                    { name: "Durée", value: inlineCode(`${song.duration}`), inline: true },
+                    { name: "Auteur", value: inlineCode(`${song.author}`), inline: true }
                 ])
             
-                if (!serverQueue.msg) {
-                    serverQueue.msg = await guild.channels.cache.get(serverQueue.textChannel.id.toString()).send({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] });
-                } else {
-                    serverQueue.msg.edit({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] }).catch(err => console.error(err));
-                }    
+            if (!serverQueue.msg) {
+                serverQueue.msg = await guild.channels.cache.get(serverQueue.textChannel.id.toString()).send({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] });
+            } else {
+                serverQueue.msg.edit({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] }).catch(err => console.error(err));
+            }    
         }
 
         const serverQueue = queue.get(message.guild.id);
@@ -110,10 +113,12 @@ module.exports =  {
     
         const songInfo = await ytdl.getInfo(args[1]);
         const song = {
-                title: songInfo.videoDetails.title,
-                url: songInfo.videoDetails.video_url,
-                author: message.member,
-        };
+                    title: songInfo.videoDetails.title,
+                    url: songInfo.videoDetails.video_url,
+                    member: message.member,
+                    duration: songInfo.videoDetails.lengthSeconds ? `${Math.floor(songInfo.videoDetails.lengthSeconds / 60)}m ${songInfo.videoDetails.lengthSeconds % 60}s` : "Unknown",
+                    author: songInfo.videoDetails.author ? songInfo.videoDetails.author.name : "Unknown"
+            };
     
         if (!serverQueue) {
             var QueueChannel;
