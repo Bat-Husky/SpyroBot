@@ -1,8 +1,34 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 const ytdl = require('ytdl-core')
 const Voice = require('@discordjs/voice')
 const youtubedl = require('youtube-dl-exec')
 const fs = require('fs');
+
+
+const vdButton = new ButtonBuilder()
+    .setCustomId('vdown')
+    .setLabel('🔉down')
+    .setStyle(ButtonStyle.Secondary);
+
+const vuButton = new ButtonBuilder()
+    .setCustomId('vup')
+    .setLabel('🔊up')
+    .setStyle(ButtonStyle.Secondary);
+
+const pauseButton = new ButtonBuilder()
+    .setCustomId('pause')
+    .setLabel('⏸️ pause')
+    .setStyle(ButtonStyle.Secondary);
+
+const stopButton = new ButtonBuilder()
+    .setCustomId('stop')
+    .setLabel('⏹️ stop')
+    .setStyle(ButtonStyle.Secondary);
+
+const skipButton = new ButtonBuilder()
+    .setCustomId('skip')
+    .setLabel('⏭️ skip')
+    .setStyle(ButtonStyle.Secondary);
 
 
 function shuffle(array) {
@@ -34,10 +60,11 @@ module.exports = {
                 .setRequired(true)
         ),
 	async execute(interaction, queue, bot) {
-            function play(guild, song) {
+            async function play(guild, song) {
                 const serverQueue = queue.get(guild.id);
                 if (!song) {
                     // serverQueue.voiceChannel.leave();
+                    serverQueue.msg.delete().catch(err => console.error(err));
                     serverQueue.connection.destroy();
                     queue.delete(guild.id);
                     return;
@@ -71,7 +98,11 @@ module.exports = {
                         { name: "Now playing", value: `[${song.title}](${song.url})` },
                         { name: "From", value: `${song.author}` }
                     ])
-                guild.channels.cache.get(serverQueue.textChannel.id.toString()).send({ embeds: [embed] })
+                if (!serverQueue.msg) {
+                    serverQueue.msg = await guild.channels.cache.get(serverQueue.textChannel.id.toString()).send({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] });
+                } else {
+                    serverQueue.msg.edit({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] }).catch(err => console.error(err));
+                }                
             }
     
             const serverQueue = queue.get(interaction.guildId);
@@ -109,7 +140,8 @@ module.exports = {
                     songs: [],
                     volume: 1,
                     playing: true,
-                    loop: "Off"
+                    loop: "Off",
+                    msg: null
                 };
         
                 queue.set(interaction.guildId, queueContruct);
