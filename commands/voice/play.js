@@ -1,8 +1,51 @@
-const { Client, EmbedBuilder } = require('discord.js');
+const { Client, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 const ytdl = require('ytdl-core')
 const Voice = require('@discordjs/voice')
 const youtubedl = require('youtube-dl-exec')
 const fs = require('fs');
+
+const vdButton = new ButtonBuilder()
+    .setCustomId('vdown')
+    .setLabel('🔉down')
+    .setStyle(ButtonStyle.Secondary);
+
+const vuButton = new ButtonBuilder()
+    .setCustomId('vup')
+    .setLabel('🔊up')
+    .setStyle(ButtonStyle.Secondary);
+
+const pauseButton = new ButtonBuilder()
+    .setCustomId('pause')
+    .setLabel('⏸️ pause')
+    .setStyle(ButtonStyle.Secondary);
+
+const stopButton = new ButtonBuilder()
+    .setCustomId('stop')
+    .setLabel('⏹️ stop')
+    .setStyle(ButtonStyle.Secondary);
+
+const skipButton = new ButtonBuilder()
+    .setCustomId('skip')
+    .setLabel('⏭️ skip')
+    .setStyle(ButtonStyle.Secondary);
+
+function shuffle(array) {
+    var m = array.length, t, i;
+  
+    // While there remain elements to shuffle…
+    while (m) {
+  
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+  
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+  
+    return array;
+}
 
 
 module.exports =  {
@@ -10,7 +53,7 @@ module.exports =  {
         return message.content.toString().toLowerCase().startsWith(`${prefix}play`)
     },
     async action(message, queue, bot) {
-        function play(guild, song) {
+        async function play(guild, song) {
             const serverQueue = queue.get(guild.id);
             if (!song) {
                 // serverQueue.voiceChannel.leave();
@@ -47,7 +90,12 @@ module.exports =  {
                     { name: "Now playing", value: `[${song.title}](${song.url})` },
                     { name: "From", value: `${song.author}` }
                 ])
-            guild.channels.cache.get(serverQueue.textChannel.id.toString()).send({ embeds: [embed] })
+            
+                if (!serverQueue.msg) {
+                    serverQueue.msg = await guild.channels.cache.get(serverQueue.textChannel.id.toString()).send({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] });
+                } else {
+                    serverQueue.msg.edit({ embeds: [embed], components: [new ActionRowBuilder().addComponents(vdButton, stopButton, pauseButton, skipButton, vuButton)] }).catch(err => console.error(err));
+                }    
         }
 
         const serverQueue = queue.get(message.guild.id);
@@ -86,7 +134,8 @@ module.exports =  {
                 songs: [],
                 volume: 1,
                 playing: true,
-                loop: "Off"
+                loop: "Off",
+                msg: null
             };
     
             queue.set(message.guild.id, queueContruct);
@@ -118,6 +167,6 @@ module.exports =  {
             
             message.channel.send({ embeds: [embed] });
             return
-      }
+        }
     },
 }
