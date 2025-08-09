@@ -2,5 +2,7 @@
   "prefix": "prefix",
   "token": "insert token here",
   "OwnerID": "A int value [no quote]",
-  "OwnerGuildID": "Your guild ID here [with quote]"
+  "OwnerGuildID": "Your guild ID here [with quote]",
+  "BotID": "Your bot id",
+  "YTAPIKey": "YouTube API Key"
 }
