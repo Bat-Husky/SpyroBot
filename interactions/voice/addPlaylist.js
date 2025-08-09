@@ -63,7 +63,7 @@ module.exports = {
             let selectedUrlsShuffled = shuffle(selectedUrls.slice());
 
             for (const url of selectedUrlsShuffled) {
-                const songInfo = await ytdl.getInfo(url);
+                const songInfo = await ytdl.getInfo(url.url);
                 const song = {
                     title: songInfo.videoDetails.title,
                     url: songInfo.videoDetails.video_url,
