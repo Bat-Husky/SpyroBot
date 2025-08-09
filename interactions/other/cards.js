@@ -16,7 +16,7 @@ module.exports = {
 
         const user = member.user;
 
-        const color = user.accentColor;
+        let color = user.accentColor;
 
         if (!inventory[user.id]) {
             await interaction.reply({ content: "Aucune carte trouvée pour cet utilisateur.", flags: MessageFlags.Ephemeral });
@@ -31,6 +31,8 @@ module.exports = {
                 await interaction.reply({ content: "Carte non trouvée.", flags: MessageFlags.Ephemeral });
                 return;
             }
+
+            if (card.id[0] === "légendaire") color = "#d4af37"
 
             const Img = new AttachmentBuilder(`./Img/cards/${card.file}`, { name: card.file });
 
