@@ -2,12 +2,12 @@ const { ButtonBuilder, ButtonStyle, MessageFlags, ActionRowBuilder } = require('
 
 const vdButton = new ButtonBuilder()
     .setCustomId('vdown')
-    .setLabel('🔉down')
+    .setLabel('🔉 down')
     .setStyle(ButtonStyle.Secondary);
 
 const vuButton = new ButtonBuilder()
     .setCustomId('vup')
-    .setLabel('🔊up')
+    .setLabel('🔊 up')
     .setStyle(ButtonStyle.Secondary);
 
 const playButton = new ButtonBuilder()
