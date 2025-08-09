@@ -25,6 +25,7 @@ const Pin = require('./commands/pin');
 const ReactRules = require('./commands/reactRules');
 const ReactionRules = require('./commands/ReactionRules');
 const xp = require('./commands/xp');
+const sendcard = require('./commands/sendcard');
 const botinfo = require('./commands/botinfo');
 
 
@@ -174,6 +175,7 @@ bot.on(Events.InteractionCreate, async interaction => {
 
 bot.on(Events.MessageCreate, async message => {
     if (!message.guild) return;
+    if (message.author.id != "622872629371731970" && message.guild.id == "621427447879172096") sendcard.execute(message);
     if (message.guild.id == 621427447879172096n && message.channel.id == 839864195314221089n) return xp.execute(message.author, message, prefix, bot);
     if (message.author.bot) return;
 
