@@ -6,12 +6,12 @@ const fs = require('fs');
 
 const vdButton = new ButtonBuilder()
     .setCustomId('vdown')
-    .setLabel('🔉down')
+    .setLabel('🔉 down')
     .setStyle(ButtonStyle.Secondary);
 
 const vuButton = new ButtonBuilder()
     .setCustomId('vup')
-    .setLabel('🔊up')
+    .setLabel('🔊 up')
     .setStyle(ButtonStyle.Secondary);
 
 const pauseButton = new ButtonBuilder()
