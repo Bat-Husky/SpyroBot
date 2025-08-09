@@ -1,0 +1,22 @@
+{
+    "total": 1,
+    "collections": {
+        "meme": {
+            "count": 1,
+            "list": [1]
+        }
+    },
+    "cards": [{
+            "id": ["meme", 1],
+            "name": "Kappa",
+            "file": "Kappa.png"
+        }
+    ],
+    "legendaryCards": [
+        {
+            "id": ["légendaire", 20001],
+            "name": "Saitama pat pat",
+            "file": "Kappa.gif"
+        }
+    ]
+}
