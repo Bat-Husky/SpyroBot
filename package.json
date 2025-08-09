@@ -5,6 +5,7 @@
     "ffmpeg-static": "^4.4.1",
     "fs": "^0.0.1-security",
     "libsodium-wrappers": "^0.7.10",
+    "node-fetch": "^3.3.2",
     "opusscript": "^0.0.8",
     "path": "^0.12.7",
     "youtube-dl-exec": "^3.0.22",
