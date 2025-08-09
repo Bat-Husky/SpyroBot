@@ -107,7 +107,7 @@ module.exports = {
         // S'il n'a pas de message on ne fait rien
         if (allMessage[message.author.id].nbMessage >= 1) {
             // On calcule la probabilité de recevoir une carte en fonction du nombre de message
-            let prob = 1 - (1 / Math.sqrt(allMessage[message.author.id].nbMessage));
+            let prob = Math.pow(1 - (1 / Math.cbrt(allMessage[message.author.id].nbMessage)), 3);
             let total = Math.floor(prob * 1000);
             let number = Math.floor(Math.random() * 1000);
             if (number < total) {
@@ -152,3 +152,4 @@ module.exports = {
         });
     }
 }
+
