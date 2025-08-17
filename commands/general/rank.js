@@ -20,7 +20,7 @@ module.exports = class Rank extends commands {
         }
 
         if (!allLevels["User"][User.id]) {
-            message.channel.send("Cette personne n'a pas de niveau.")
+            message.channel.send("Cette personne n'est pas classée.")
             return
         }
 
@@ -55,3 +55,4 @@ module.exports = class Rank extends commands {
         message.channel.send({ embeds: [embed] });
     }
 }
+
