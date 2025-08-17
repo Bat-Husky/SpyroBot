@@ -18,14 +18,15 @@ module.exports = {
         if (interaction.options.getUser('user')) {
             User = interaction.guild.members.cache.get(interaction.options.getUser('user').id);
         }
+
+		if (!allLevels["User"][User.id]) {
+            await interaction.reply("Cette personne n'est pas classée.")
+            return
+        }
     
         var rank = 1;
     
         const Level = allLevels["User"][User.id]["level"]
-    
-        if (!allLevels["User"][User.id]) {
-            return interaction.editReply("Cette personne n'a pas de niveau.")
-        }
     
         for (var i = 0; i < allLevels["List"].length; i++) {
             //console.log(allLevels["User"]["467284102987382800"])
@@ -52,4 +53,5 @@ module.exports = {
     
         await interaction.reply({ embeds: [embed] })
 	},
+
 };
