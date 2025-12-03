@@ -40,7 +40,7 @@ List of the main commands :
 
 ## Releases
 
-Last Release : `v2.1`<br>
+Last Release : `v3.0`<br>
 Last Pre-Release : `v0.4.1,1.3.5`
 
 ### How to read release tag ?
